@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Arsitek | Junita Panjaitan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Reset & Variabel */
+        :root {
+            --bg-color: #faf9f6;
+            --text-color: #333333;
+            --accent-color: #7a7a7a;
+            --hero-text-color: #ffffff; 
+            --modal-bg: rgba(30, 30, 30, 0.98); /* Warna background modal sedikit digelapkan */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Jost', sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; overflow-x: hidden; }
+        html { scroll-behavior: smooth; }
+
+        /* Navigasi Desktop & Mobile (Tetap sama) */
+        nav { position: fixed; top: 0; width: 100%; padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; background: transparent; z-index: 100; transition: all 0.4s ease; }
+        nav.scrolled { padding: 1rem 5%; background: rgba(250, 249, 246, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        nav .logo { font-size: 1.4rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--hero-text-color); transition: color 0.4s ease; z-index: 101; }
+        nav.scrolled .logo { color: var(--text-color); }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { text-decoration: none; font-weight: 500; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; color: var(--hero-text-color); transition: color 0.4s ease; position: relative; }
+        nav.scrolled .nav-links a { color: var(--text-color); }
+        .nav-links a:hover { color: var(--accent-color); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 50%; width: 0; height: 2px; background-color: var(--hero-text-color); transition: width 0.3s ease, left 0.3s ease, background-color 0.4s ease; transform: translateX(-50%); }
+        .nav-links a.active::after { width: 100%; }
+        nav.scrolled .nav-links a::after { background-color: var(--text-color); }
+        .menu-toggle { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 101; }
+        .menu-toggle .bar { width: 30px; height: 2px; background-color: var(--hero-text-color); transition: all 0.3s ease-in-out; }
+        nav.scrolled .menu-toggle .bar { background-color: var(--text-color); }
+        .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); background-color: var(--text-color); }
+        .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
+        .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background-color: var(--text-color); }
+
+        /* Section Layouts (Tetap sama) */
+        .hero { position: relative; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; text-align: left; padding: 0 10%; color: var(--hero-text-color); overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('https://images.unsplash.com/photo-1600210491369-e753d80a41f3?q=80&w=1600&auto=format&fit=crop') no-repeat center center/cover; filter: blur(3px); z-index: -2; transform: scale(1.1); }
+        .hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 100%); z-index: -1; }
+        .hero-subtitle { font-size: 1rem; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; opacity: 0.9; }
+        .hero-subtitle::before { content: ''; display: inline-block; width: 40px; height: 1px; background-color: var(--hero-text-color); margin-right: 15px; vertical-align: middle; }
+        .hero h1 { font-size: 4rem; font-weight: 300; line-height: 1.2; margin-bottom: 1.5rem; letter-spacing: 1px; }
+        .hero h1 span { font-weight: 600; display: block; font-size: 4.5rem; }
+        .hero-quote { font-size: 1.1rem; font-weight: 300; letter-spacing: 0.5px; opacity: 0.85; max-width: 500px; line-height: 1.8; }
+        section { padding: 120px 10%; max-width: 1400px; margin: 0 auto; }
+        .section-title { font-size: 2rem; font-weight: 400; margin-bottom: 3rem; text-transform: uppercase; letter-spacing: 3px; text-align: center; }
+        .about-content { display: flex; gap: 4rem; align-items: center; flex-wrap: wrap; }
+        .about-text { flex: 1 1 400px; }
+        .about-text p { font-size: 1.1rem; color: #555; margin-bottom: 1.5rem; line-height: 1.8; }
+        .about-image { flex: 1 1 400px; width: 100%; height: 500px; object-fit: cover; border-radius: 4px; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; }
+        .project-card { overflow: hidden; border-radius: 4px; cursor: pointer; position: relative; }
+        .project-image { width: 100%; height: 450px; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .project-card:hover .project-image { transform: scale(1.05); }
+        .project-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 2.5rem; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%); color: white; opacity: 0; transform: translateY(20px); transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); pointer-events: none; }
+        .project-card:hover .project-info { opacity: 1; transform: translateY(0); }
+        
+        /* =========================================
+           MODAL GALERI (DISEDERHANAKAN & RESPONSIVE HP)
+           ========================================= */
+        .modal {
+            display: none; 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--modal-bg);
+            z-index: 9999; opacity: 0; transition: opacity 0.4s ease;
+            backdrop-filter: blur(5px);
+            align-items: center; justify-content: center;
+        }
+        .modal.show { display: flex; opacity: 1; }
+
+        .modal-container {
+            width: 85%;
+            height: 75vh;
+            background-color: #fff;
+            display: flex;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden; /* Mencegah gambar tumpah */
+        }
+
+        /* Sisi Teks (Kiri di Laptop, Atas di HP) */
+        .modal-text-side {
+            flex: 1;
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: #fff;
+            overflow-y: auto; /* Bisa discroll jika teks panjang */
+        }
+
+        .modal-title { font-size: 2.5rem; font-weight: 400; margin-bottom: 1.5rem; color: #111; }
+        .modal-desc { font-size: 1.1rem; font-weight: 300; color: #555; line-height: 1.8; font-style: italic; }
+
+        /* Sisi Gambar (Kanan di Laptop, Bawah di HP) */
+        .modal-image-side {
+            flex: 1.5;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+        .modal-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        /* Navigasi Overlay Modal */
+        .modal-close { position: absolute; top: 15px; right: 25px; font-size: 2rem; color: white; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
+        .modal-close:hover { transform: scale(1.1); }
+        .modal-counter { position: absolute; top: 20px; left: 25px; color: white; font-size: 0.9rem; letter-spacing: 1px; z-index: 10000; }
+        
+        .modal-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            font-size: 2.5rem; color: white; cursor: pointer; z-index: 10000; padding: 20px; transition: opacity 0.3s; opacity: 0.7;
+        }
+        .modal-nav:hover { opacity: 1; }
+        .modal-prev { left: 1%; }
+        .modal-next { right: 1%; }
+
+        .modal-footer {
+            position: absolute; bottom: 15px; width: 100%; display: flex; justify-content: space-between; padding: 0 25px; color: white; font-size: 0.9rem; z-index: 10000; pointer-events: none;
+        }
+        .modal-footer-icons i { margin-left: 15px; pointer-events: auto; cursor: pointer; }
+
+        /* Animasi Scroll */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s ease-out, transform 1s ease-out; will-change: opacity, transform; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 1s ease-out, transform 1s ease-out; }
+        .reveal-left.active { opacity: 1; transform: translateX(0); }
+        .delay-1 { transition-delay: 0.15s; }
+        .delay-2 { transition-delay: 0.3s; }
+
+        /* =========================================
+           RESPONSIF (TAMPILAN HP)
+           ========================================= */
+        @media (max-width: 900px) {
+            .modal-container { flex-direction: column; height: 80vh; width: 90%; }
+            .modal-text-side { flex: none; height: 40%; padding: 1.5rem; } /* Teks mengambil 40% tinggi */
+            .modal-title { font-size: 1.6rem; margin-bottom: 0.8rem; }
+            .modal-desc { font-size: 1rem; line-height: 1.5; }
+            .modal-image-side { flex: none; height: 60%; } /* Gambar mengambil sisa 60% tinggi */
+            .modal-nav { font-size: 1.5rem; top: 70%; padding: 10px; } /* Panah diturunkan agar pas di area gambar */
+            .modal-footer { font-size: 0.8rem; bottom: 5px; }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            .nav-links { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: var(--bg-color); flex-direction: column; justify-content: center; align-items: center; gap: 3rem; transform: translateY(-100%); transition: transform 0.4s ease-in-out; }
+            .nav-links.active-menu { transform: translateY(0); }
+            .nav-links a { color: var(--text-color) !important; font-size: 1.5rem; }
+            .nav-links a::after { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero h1 span { font-size: 3rem; }
+            .hero { padding: 0 5%; }
+            nav { padding: 1.5rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="logo" id="logo-text">Junita Panjaitan.</div>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </div>
+        <div class="nav-links" id="nav-links">
+            <a href="#home">Beranda</a>
+            <a href="#about">Profil</a>
+            <a href="#portfolio">Karya</a>
+            <a href="#contact">Kontak</a>
+        </div>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="reveal-left">
+            <p class="hero-subtitle">Halo, Selamat Datang</p>
+            <h1>Saya <br><span>Junita Panjaitan</span></h1>
+            <p class="hero-quote">Seorang Arsitek Independen yang bersemangat menerjemahkan karakter Anda ke dalam desain ruang yang fungsional, minimalis, dan bermakna.</p>
+        </div>
+    </header>
+
+    <section id="about">
+        <h2 class="section-title reveal">Profil Saya</h2>
+        <div class="about-content">
+            <div class="about-text reveal delay-1">
+                 <p>Saya percaya bahwa arsitektur bukan sekadar tentang membangun gedung, melainkan tentang merancang pengalaman hidup. Fokus saya adalah menciptakan harmoni antara cahaya alami, sirkulasi udara, dan material yang jujur.</p>
+                 <p>Sebagai seorang profesional independen, saya mengawal setiap proyek secara personal dari sketsa pertama hingga detail konstruksi terakhir. Mari berdiskusi tentang bagaimana kita bisa memaksimalkan potensi ruang Anda.</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1510627489930-0c1b0bfb6785?q=80&w=800&auto=format&fit=crop" alt="Foto Profil Arsitek" class="about-image reveal delay-2">
+        </div>
+    </section>
+
+    <section id="portfolio" style="background-color: #f4f4f4;">
+        <h2 class="section-title reveal">Karya Terpilih</h2>
+        <div class="portfolio-grid">
+            
+            <div class="project-card reveal delay-1" data-id="project-1">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop" alt="Proyek 1" class="project-image">
+                <div class="project-info">
+                    <h3 style="font-weight: 500; font-size: 1.3rem;">Rumah Tropis Modern</h3>
+                    <p style="font-weight: 300; font-size: 0.9rem;">Klik untuk melihat detail proyek</p>
+                </div>
+            </div>
+            
+            <div class="project-card reveal delay-2" data-id="project-2">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800&auto=format&fit=crop" alt="Proyek 2" class="project-image">
+                <div class="project-info">
+                    <h3 style="font-weight: 500; font-size: 1.3rem;">Fasad Beton Ekspos</h3>
+                    <p style="font-weight: 300; font-size: 0.9rem;">Klik untuk melihat detail proyek</p>
+                </div>
+            </div>
+            
+            <div class="project-card reveal delay-1" data-id="project-3">
+                <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=800&auto=format&fit=crop" alt="Proyek 3" class="project-image">
+                <div class="project-info">
+                    <h3 style="font-weight: 500; font-size: 1.3rem;">Apartemen Studio</h3>
+                    <p style="font-weight: 300; font-size: 0.9rem;">Klik untuk melihat detail proyek</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact" style="text-align: center; padding-bottom: 6rem;">
+        <h2 class="section-title reveal">Mari Berkolaborasi</h2>
+        <p class="reveal delay-1" style="font-size: 1.1rem; margin-bottom: 3rem; color: #555;">Punya ide hunian impian atau ruang yang ingin diwujudkan?<br>Mari berdiskusi lebih lanjut melalui kontak di bawah ini.</p>
+        
+        <div class="contact-methods reveal delay-2" style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+            <a href="mailto:emailanda@domain.com" style="display: flex; align-items: center; gap: 10px; padding: 15px 35px; border: 1px solid var(--text-color); background: transparent; color: var(--text-color); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; transition: all 0.3s;">
+                <i class="fas fa-envelope"></i> Email Saya
+            </a>
+            <a href="https://wa.me/6281234567890" target="_blank" style="display: flex; align-items: center; gap: 10px; padding: 15px 35px; background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--text-color); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; transition: all 0.3s;">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 3rem; color: var(--accent-color); font-size: 0.9rem;">
+        <p>&copy; 2026 Junita Panjaitan. Dirancang dengan teliti.</p>
+    </footer>
+
+    <div class="modal" id="project-modal">
+        <span class="modal-close" id="modal-close">&times;</span>
+        <div class="modal-counter" id="modal-counter">1 of 3</div>
+        
+        <i class="fas fa-chevron-left modal-nav modal-prev" id="modal-prev"></i>
+        <i class="fas fa-chevron-right modal-nav modal-next" id="modal-next"></i>
+
+        <div class="modal-container">
+            <div class="modal-text-side">
+                <h2 class="modal-title" id="modal-title">Judul Gambar</h2>
+                <p class="modal-desc" id="modal-desc">Deskripsi spesifik untuk gambar ini.</p>
+            </div>
+            <div class="modal-image-side">
+                <img src="" alt="Project Image" class="modal-image" id="modal-image">
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div id="modal-project-name">Portfolio Junita Panjaitan</div>
+            <div class="modal-footer-icons">
+                <i class="fab fa-facebook-f"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-pinterest-p"></i>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ... Logika Menu, ScrollSpy, dan Reveal (Tetap Sama) ...
+        const navbar = document.getElementById('navbar'); window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
+        const menuToggle = document.getElementById('mobile-menu'); const navLinksContainer = document.getElementById('nav-links'); const logoText = document.getElementById('logo-text'); const navLinks = document.querySelectorAll('.nav-links a');
+        menuToggle.addEventListener('click', () => { menuToggle.classList.toggle('is-active'); navLinksContainer.classList.toggle('active-menu'); if(navLinksContainer.classList.contains('active-menu')) { logoText.style.color = "var(--text-color)"; } else if (window.scrollY <= 50) { logoText.style.color = "var(--hero-text-color)"; } });
+        navLinks.forEach(link => { link.addEventListener('click', () => { menuToggle.classList.remove('is-active'); navLinksContainer.classList.remove('active-menu'); if (window.scrollY <= 50) { logoText.style.color = "var(--hero-text-color)"; }});});
+        const sections = document.querySelectorAll('header, section'); const navObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const currentId = entry.target.getAttribute('id'); navLinks.forEach(item => item.classList.remove('active')); const activeMenu = document.querySelector(`.nav-links a[href="#${currentId}"]`); if (activeMenu) { activeMenu.classList.add('active'); } } }); }, { root: null, rootMargin: '-40% 0px -60% 0px', threshold: 0 }); sections.forEach(section => { navObserver.observe(section); });
+        const observer = new IntersectionObserver((entries, observer) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); observer.unobserve(entry.target); } }); }, { root: null, rootMargin: '0px', threshold: 0.15 }); document.querySelectorAll('.reveal, .reveal-left').forEach(element => { observer.observe(element); });
+
+
+        // ==========================================
+        // LOGIKA MODAL (YANG DIPERBARUI UNTUK JUDUL/DESC PER GAMBAR)
+        // ==========================================
+
+        // Struktur Data Baru: Setiap gambar punya url, title, dan desc masing-masing
+        const projectsData = {
+            'project-1': [
+                {
+                    url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
+                    title: "Fasad Utama Tropis",
+                    desc: "Desain depan ini mengutamakan sirkulasi udara silang. Material kayu dan beton berpadu menciptakan kesan hangat namun kokoh."
+                },
+                {
+                    url: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1200&auto=format&fit=crop",
+                    title: "Ruang Keluarga Terbuka",
+                    desc: "Konsep open-plan menyatukan ruang keluarga dengan taman belakang. Jendela kaca raksasa menghapus batas antara dalam dan luar ruangan."
+                },
+                {
+                    url: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1200&auto=format&fit=crop",
+                    title: "Kamar Tidur Utama",
+                    desc: "Penataan cahaya alami dimaksimalkan untuk pencahayaan pagi. Menggunakan palet warna natural agar penghuni merasa rileks."
+                }
+            ],
+            'project-2': [
+                {
+                    url: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1200&auto=format&fit=crop",
+                    title: "Bentuk Geometris",
+                    desc: "Karakter industrial yang kuat ditonjolkan melalui bentuk kotak dan beton ekspos yang mendominasi muka bangunan."
+                },
+                {
+                    url: "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?q=80&w=1200&auto=format&fit=crop",
+                    title: "Detail Tekstur Beton",
+                    desc: "Permukaan dinding beton dibiarkan kasar (unfinished) untuk memberikan tekstur dan bayangan yang menarik saat tersorot matahari."
+                }
+            ],
+            'project-3': [
+                {
+                    url: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1200&auto=format&fit=crop",
+                    title: "Optimalisasi Ruang Sempit",
+                    desc: "Tantangan apartemen studio dijawab dengan perabotan multifungsi (built-in) agar sisa ruang gerak tetap lega."
+                },
+                {
+                    url: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=1200&auto=format&fit=crop",
+                    title: "Dapur Mini Efisien",
+                    desc: "Dapur dirancang compact dengan elemen warna putih dan kayu muda agar ruangan terasa lebih terang."
+                }
+            ]
+        };
+
+        const modal = document.getElementById('project-modal');
+        const modalImg = document.getElementById('modal-image');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalCounter = document.getElementById('modal-counter');
+        const closeBtn = document.getElementById('modal-close');
+        const prevBtn = document.getElementById('modal-prev');
+        const nextBtn = document.getElementById('modal-next');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        let currentProjectData = [];
+        let currentImageIndex = 0;
+
+        // Fungsi untuk memperbarui Gambar, Judul, dan Deskripsi secara bersamaan
+        function updateModalContent() {
+            const currentItem = currentProjectData[currentImageIndex];
+            modalImg.src = currentItem.url;
+            modalTitle.innerText = currentItem.title;
+            modalDesc.innerText = currentItem.desc;
+            modalCounter.innerText = `${currentImageIndex + 1} of ${currentProjectData.length}`;
+        }
+
+        // Saat kartu portofolio diklik
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const projectId = card.getAttribute('data-id');
+                const data = projectsData[projectId];
+
+                if(data && data.length > 0) {
+                    currentProjectData = data; // Ambil kumpulan gambar+teks untuk proyek tersebut
+                    currentImageIndex = 0; // Mulai dari gambar pertama
+                    
+                    updateModalContent();
+                    modal.classList.add('show');
+                    document.body.style.overflow = 'hidden'; // Matikan scroll halaman belakang
+                }
+            });
+        });
+
+        // Tombol Tutup
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto'; 
+        });
+
+        // Navigasi Panah
+        nextBtn.addEventListener('click', () => {
+            currentImageIndex++;
+            if (currentImageIndex >= currentProjectData.length) currentImageIndex = 0; 
+            updateModalContent();
+        });
+        prevBtn.addEventListener('click', () => {
+            currentImageIndex--;
+            if (currentImageIndex < 0) currentImageIndex = currentProjectData.length - 1; 
+            updateModalContent();
+        });
+
+        // Klik area luar putih untuk menutup modal
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>
