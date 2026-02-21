@@ -208,6 +208,69 @@
             .hero { padding: 0 5%; }
             nav { padding: 1.5rem 5%; }
         }
+
+/* =========================================
+           TOMBOL CV & KEAHLIAN (SKILLS)
+           ========================================= */
+        .btn-cv {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            margin-top: 2rem;
+            background-color: var(--text-color);
+            color: var(--hero-text-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cv:hover {
+            background-color: transparent;
+            color: var(--text-color);
+        }
+
+        .skills-container {
+            margin-top: 3.5rem;
+            width: 100%;
+        }
+
+        .skills-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #111;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill-tag {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: #ebebeb;
+            border-radius: 50px; /* Membuat sudutnya bulat sempurna */
+            font-size: 0.95rem;
+            color: var(--text-color);
+            transition: transform 0.3s, background-color 0.3s, color 0.3s;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-3px); /* Efek melayang saat disentuh */
+            background-color: var(--text-color);
+            color: var(--hero-text-color);
+        }
     </style>
 </head>
 <body>
@@ -239,7 +302,21 @@
             <div class="about-text reveal delay-1">
                  <p>Saya percaya bahwa arsitektur bukan sekadar tentang membangun gedung, melainkan tentang merancang pengalaman hidup. Fokus saya adalah menciptakan harmoni antara cahaya alami, sirkulasi udara, dan material yang jujur.</p>
                  <p>Sebagai seorang profesional independen, saya mengawal setiap proyek secara personal dari sketsa pertama hingga detail konstruksi terakhir. Mari berdiskusi tentang bagaimana kita bisa memaksimalkan potensi ruang Anda.</p>
+                 
+                 <a href="file-cv-anda.pdf" target="_blank" class="btn-cv">
+                     <i class="fas fa-file-download"></i> Download CV
+                 </a>
+
+                 <div class="skills-container">
+                     <h3 class="skills-title">Keahlian & Perangkat</h3>
+                     <div class="skills-grid">
+                         <div class="skill-tag"><i class="fas fa-pen-nib"></i> AutoCAD</div>
+                         <div class="skill-tag"><i class="fas fa-cube"></i> SketchUp & 3D Rendering</div>
+                         <div class="skill-tag"><i class="fas fa-swatchbook"></i> Material & Layouting</div>
+                     </div>
+                 </div>
             </div>
+            
             <img src="https://images.unsplash.com/photo-1510627489930-0c1b0bfb6785?q=80&w=800&auto=format&fit=crop" alt="Foto Profil Arsitek" class="about-image reveal delay-2">
         </div>
     </section>
