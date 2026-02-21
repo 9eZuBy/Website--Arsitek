@@ -13,7 +13,7 @@
             --text-color: #333333;
             --accent-color: #7a7a7a;
             --hero-text-color: #ffffff; 
-            --modal-bg: rgba(30, 30, 30, 0.98); /* Warna background modal sedikit digelapkan */
+            --modal-bg: rgba(20, 20, 20, 0.99); /* Background modal lebih gelap */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -62,29 +62,30 @@
         .project-card:hover .project-info { opacity: 1; transform: translateY(0); }
         
         /* =========================================
-           MODAL GALERI (DISEDERHANAKAN & RESPONSIVE HP)
+           MODAL GALERI (DESKTOP DEFAULT)
            ========================================= */
         .modal {
             display: none; 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: var(--modal-bg);
             z-index: 9999; opacity: 0; transition: opacity 0.4s ease;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
             align-items: center; justify-content: center;
         }
         .modal.show { display: flex; opacity: 1; }
 
         .modal-container {
-            width: 85%;
-            height: 75vh;
+            width: 90%; /* Sedikit lebih lebar di desktop */
+            height: 85vh;
             background-color: #fff;
             display: flex;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7);
             position: relative;
-            overflow: hidden; /* Mencegah gambar tumpah */
+            overflow: hidden;
+            border-radius: 4px;
         }
 
-        /* Sisi Teks (Kiri di Laptop, Atas di HP) */
+        /* Sisi Teks (Kiri di Laptop) */
         .modal-text-side {
             flex: 1;
             padding: 4rem;
@@ -92,37 +93,46 @@
             flex-direction: column;
             justify-content: center;
             background-color: #fff;
-            overflow-y: auto; /* Bisa discroll jika teks panjang */
+            overflow-y: auto;
         }
-
         .modal-title { font-size: 2.5rem; font-weight: 400; margin-bottom: 1.5rem; color: #111; }
         .modal-desc { font-size: 1.1rem; font-weight: 300; color: #555; line-height: 1.8; font-style: italic; }
 
-        /* Sisi Gambar (Kanan di Laptop, Bawah di HP) */
+        /* Sisi Gambar (Kanan di Laptop) */
         .modal-image-side {
-            flex: 1.5;
-            background-color: #f0f0f0;
+            flex: 1.6; /* Gambar sedikit lebih dominan di desktop */
+            background-color: #111; /* Background gelap untuk area gambar */
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .modal-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .modal-image { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; /* Di desktop tetap cover agar penuh */
+            display: block; 
+        }
 
-        /* Navigasi Overlay Modal */
-        .modal-close { position: absolute; top: 15px; right: 25px; font-size: 2rem; color: white; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
+        /* UI Navigasi Modal */
+        .modal-close { position: absolute; top: 20px; right: 25px; font-size: 2rem; color: white; cursor: pointer; z-index: 10001; transition: transform 0.3s; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
         .modal-close:hover { transform: scale(1.1); }
-        .modal-counter { position: absolute; top: 20px; left: 25px; color: white; font-size: 0.9rem; letter-spacing: 1px; z-index: 10000; }
+        .modal-counter { position: absolute; top: 25px; left: 25px; color: white; font-size: 0.9rem; letter-spacing: 2px; z-index: 10001; text-shadow: 0 2px 5px rgba(0,0,0,0.5); font-weight: 500; }
         
         .modal-nav {
             position: absolute; top: 50%; transform: translateY(-50%);
-            font-size: 2.5rem; color: white; cursor: pointer; z-index: 10000; padding: 20px; transition: opacity 0.3s; opacity: 0.7;
+            font-size: 3rem; color: white; cursor: pointer; z-index: 10001; padding: 20px; transition: all 0.3s; opacity: 0.8;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
-        .modal-nav:hover { opacity: 1; }
-        .modal-prev { left: 1%; }
-        .modal-next { right: 1%; }
+        .modal-nav:hover { opacity: 1; transform: translateY(-50%) scale(1.1); }
+        .modal-prev { left: 20px; }
+        .modal-next { right: 20px; }
 
         .modal-footer {
-            position: absolute; bottom: 15px; width: 100%; display: flex; justify-content: space-between; padding: 0 25px; color: white; font-size: 0.9rem; z-index: 10000; pointer-events: none;
+            position: absolute; bottom: 20px; width: 100%; display: flex; justify-content: space-between; padding: 0 30px; color: rgba(255,255,255,0.8); font-size: 0.85rem; z-index: 10001; pointer-events: none; letter-spacing: 1px;
         }
-        .modal-footer-icons i { margin-left: 15px; pointer-events: auto; cursor: pointer; }
+        .modal-footer-icons i { margin-left: 20px; pointer-events: auto; cursor: pointer; transition: color 0.3s; }
+        .modal-footer-icons i:hover { color: white; }
 
         /* Animasi Scroll */
         .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s ease-out, transform 1s ease-out; will-change: opacity, transform; }
@@ -133,16 +143,58 @@
         .delay-2 { transition-delay: 0.3s; }
 
         /* =========================================
-           RESPONSIF (TAMPILAN HP)
+           RESPONSIF HP (PERBAIKAN UKURAN GAMBAR)
            ========================================= */
         @media (max-width: 900px) {
-            .modal-container { flex-direction: column; height: 80vh; width: 90%; }
-            .modal-text-side { flex: none; height: 40%; padding: 1.5rem; } /* Teks mengambil 40% tinggi */
-            .modal-title { font-size: 1.6rem; margin-bottom: 0.8rem; }
-            .modal-desc { font-size: 1rem; line-height: 1.5; }
-            .modal-image-side { flex: none; height: 60%; } /* Gambar mengambil sisa 60% tinggi */
-            .modal-nav { font-size: 1.5rem; top: 70%; padding: 10px; } /* Panah diturunkan agar pas di area gambar */
-            .modal-footer { font-size: 0.8rem; bottom: 5px; }
+            /* Ubah layout jadi vertikal (teks atas, gambar bawah) */
+            .modal-container { flex-direction: column; height: 90vh; width: 95%; border-radius: 0; }
+            
+            /* Area Teks di HP */
+            .modal-text-side { 
+                flex: none; 
+                height: 40%; /* Teks mengambil 40% tinggi */
+                padding: 2rem 1.5rem;
+                background: #fafafa;
+            }
+            .modal-title { font-size: 1.8rem; margin-bottom: 1rem; }
+            .modal-desc { font-size: 1rem; line-height: 1.6; }
+            
+            /* Area Gambar di HP */
+            .modal-image-side { 
+                flex: none; 
+                height: 60%; /* Gambar mengambil 60% tinggi */
+                background-color: #000; /* Latar belakang hitam pekat */
+                position: relative;
+            }
+            
+            /* ----- PERBAIKAN UTAMA DI SINI ----- */
+            .modal-image {
+                /* Gunakan 'contain' agar gambar utuh dan tidak terpotong/terlalu besar */
+                object-fit: contain; 
+                background-color: #000; /* Memastikan area kosong tetap hitam */
+            }
+
+            /* Penyesuaian UI Navigasi di HP agar lebih terlihat */
+            .modal-close {
+                top: 15px; right: 15px; font-size: 1.8rem;
+                background: rgba(0,0,0,0.5); /* Tambah background transparan agar jelas */
+                width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;
+            }
+            .modal-counter { 
+                top: 20px; left: 20px; font-size: 0.85rem; 
+                background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 20px;
+            }
+            
+            /* Panah Navigasi di HP */
+            .modal-nav {
+                font-size: 2rem; padding: 10px;
+                background: rgba(0,0,0,0.5); /* Background lingkaran hitam transparan */
+                border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
+            }
+            .modal-prev { left: 15px; }
+            .modal-next { right: 15px; }
+
+            .modal-footer { display: none; } /* Sembunyikan footer di HP agar lebih bersih */
         }
 
         @media (max-width: 768px) {
@@ -242,28 +294,26 @@
     </footer>
 
     <div class="modal" id="project-modal">
-        <span class="modal-close" id="modal-close">&times;</span>
-        <div class="modal-counter" id="modal-counter">1 of 3</div>
-        
-        <i class="fas fa-chevron-left modal-nav modal-prev" id="modal-prev"></i>
-        <i class="fas fa-chevron-right modal-nav modal-next" id="modal-next"></i>
-
         <div class="modal-container">
             <div class="modal-text-side">
                 <h2 class="modal-title" id="modal-title">Judul Gambar</h2>
                 <p class="modal-desc" id="modal-desc">Deskripsi spesifik untuk gambar ini.</p>
             </div>
             <div class="modal-image-side">
+                <span class="modal-close" id="modal-close">&times;</span>
+                <div class="modal-counter" id="modal-counter">1 of 3</div>
+                <i class="fas fa-chevron-left modal-nav modal-prev" id="modal-prev"></i>
+                <i class="fas fa-chevron-right modal-nav modal-next" id="modal-next"></i>
                 <img src="" alt="Project Image" class="modal-image" id="modal-image">
-            </div>
-        </div>
-
-        <div class="modal-footer">
-            <div id="modal-project-name">Portfolio Junita Panjaitan</div>
-            <div class="modal-footer-icons">
-                <i class="fab fa-facebook-f"></i>
-                <i class="fab fa-twitter"></i>
-                <i class="fab fa-pinterest-p"></i>
+                
+                <div class="modal-footer">
+                    <div id="modal-project-name">Portfolio Junita Panjaitan</div>
+                    <div class="modal-footer-icons">
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-pinterest-p"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -282,7 +332,6 @@
         // LOGIKA MODAL (YANG DIPERBARUI UNTUK JUDUL/DESC PER GAMBAR)
         // ==========================================
 
-        // Struktur Data Baru: Setiap gambar punya url, title, dan desc masing-masing
         const projectsData = {
             'project-1': [
                 {
@@ -340,7 +389,6 @@
         let currentProjectData = [];
         let currentImageIndex = 0;
 
-        // Fungsi untuk memperbarui Gambar, Judul, dan Deskripsi secara bersamaan
         function updateModalContent() {
             const currentItem = currentProjectData[currentImageIndex];
             modalImg.src = currentItem.url;
@@ -349,30 +397,27 @@
             modalCounter.innerText = `${currentImageIndex + 1} of ${currentProjectData.length}`;
         }
 
-        // Saat kartu portofolio diklik
         projectCards.forEach(card => {
             card.addEventListener('click', () => {
                 const projectId = card.getAttribute('data-id');
                 const data = projectsData[projectId];
 
                 if(data && data.length > 0) {
-                    currentProjectData = data; // Ambil kumpulan gambar+teks untuk proyek tersebut
-                    currentImageIndex = 0; // Mulai dari gambar pertama
+                    currentProjectData = data; 
+                    currentImageIndex = 0; 
                     
                     updateModalContent();
                     modal.classList.add('show');
-                    document.body.style.overflow = 'hidden'; // Matikan scroll halaman belakang
+                    document.body.style.overflow = 'hidden'; 
                 }
             });
         });
 
-        // Tombol Tutup
         closeBtn.addEventListener('click', () => {
             modal.classList.remove('show');
             document.body.style.overflow = 'auto'; 
         });
 
-        // Navigasi Panah
         nextBtn.addEventListener('click', () => {
             currentImageIndex++;
             if (currentImageIndex >= currentProjectData.length) currentImageIndex = 0; 
@@ -384,7 +429,6 @@
             updateModalContent();
         });
 
-        // Klik area luar putih untuk menutup modal
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.classList.remove('show');
