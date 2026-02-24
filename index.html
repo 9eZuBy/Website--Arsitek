@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Arsitek | Junita Panjaitan</title>
+    <title>Architect Portfolio | Junita Panjaitan</title>
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* CSS Reset & Variabel */
+        /* CSS Reset & Variables */
         :root {
             --bg-color: #faf9f6;
             --text-color: #333333;
             --accent-color: #7a7a7a;
             --hero-text-color: #ffffff; 
-            --modal-bg: rgba(20, 20, 20, 0.99); /* Background modal lebih gelap */
+            --modal-bg: rgba(20, 20, 20, 0.99);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Jost', sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; overflow-x: hidden; }
         html { scroll-behavior: smooth; }
 
-        /* Navigasi Desktop & Mobile (Tetap sama) */
+        /* Navigation */
         nav { position: fixed; top: 0; width: 100%; padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; background: transparent; z-index: 100; transition: all 0.4s ease; }
         nav.scrolled { padding: 1rem 5%; background: rgba(250, 249, 246, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         nav .logo { font-size: 1.4rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--hero-text-color); transition: color 0.4s ease; z-index: 101; }
@@ -39,7 +39,7 @@
         .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
         .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background-color: var(--text-color); }
 
-        /* Section Layouts (Tetap sama) */
+        /* Sections */
         .hero { position: relative; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; text-align: left; padding: 0 10%; color: var(--hero-text-color); overflow: hidden; }
         .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('https://images.unsplash.com/photo-1600210491369-e753d80a41f3?q=80&w=1600&auto=format&fit=crop') no-repeat center center/cover; filter: blur(3px); z-index: -2; transform: scale(1.1); }
         .hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 100%); z-index: -1; }
@@ -53,7 +53,6 @@
         .about-content { display: flex; gap: 4rem; align-items: center; flex-wrap: wrap; }
         .about-text { flex: 1 1 400px; }
         .about-text p { font-size: 1.1rem; color: #555; margin-bottom: 1.5rem; line-height: 1.8; }
-        .about-image { flex: 1 1 400px; width: 100%; height: 500px; object-fit: cover; border-radius: 4px; }
         .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; }
         .project-card { overflow: hidden; border-radius: 4px; cursor: pointer; position: relative; }
         .project-image { width: 100%; height: 450px; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
@@ -61,295 +60,57 @@
         .project-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 2.5rem; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%); color: white; opacity: 0; transform: translateY(20px); transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); pointer-events: none; }
         .project-card:hover .project-info { opacity: 1; transform: translateY(0); }
         
-        /* =========================================
-           MODAL GALERI (DESKTOP DEFAULT)
-           ========================================= */
-        .modal {
-            display: none; 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--modal-bg);
-            z-index: 9999; opacity: 0; transition: opacity 0.4s ease;
-            backdrop-filter: blur(8px);
-            align-items: center; justify-content: center;
-        }
+        /* Modal Styles */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--modal-bg); z-index: 9999; opacity: 0; transition: opacity 0.4s ease; backdrop-filter: blur(8px); align-items: center; justify-content: center; }
         .modal.show { display: flex; opacity: 1; }
-
-        .modal-container {
-            width: 90%; /* Sedikit lebih lebar di desktop */
-            height: 85vh;
-            background-color: #fff;
-            display: flex;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.7);
-            position: relative;
-            overflow: hidden;
-            border-radius: 4px;
-        }
-
-        /* Sisi Teks (Kiri di Laptop) */
-        .modal-text-side {
-            flex: 1;
-            padding: 4rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background-color: #fff;
-            overflow-y: auto;
-        }
+        .modal-container { width: 90%; height: 85vh; background-color: #fff; display: flex; box-shadow: 0 25px 50px rgba(0,0,0,0.7); position: relative; overflow: hidden; border-radius: 4px; }
+        .modal-text-side { flex: 1; padding: 4rem; display: flex; flex-direction: column; justify-content: center; background-color: #fff; overflow-y: auto; }
         .modal-title { font-size: 2.5rem; font-weight: 400; margin-bottom: 1.5rem; color: #111; }
         .modal-desc { font-size: 1.1rem; font-weight: 300; color: #555; line-height: 1.8; font-style: italic; }
-
-        /* Sisi Gambar (Kanan di Laptop) */
-        .modal-image-side {
-            flex: 1.6; /* Gambar sedikit lebih dominan di desktop */
-            background-color: #111; /* Background gelap untuk area gambar */
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-image { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; /* Di desktop tetap cover agar penuh */
-            display: block; 
-        }
-
-        /* UI Navigasi Modal */
+        .modal-image-side { flex: 1.6; background-color: #111; position: relative; display: flex; align-items: center; justify-content: center; }
+        .modal-image { width: 100%; height: 100%; object-fit: cover; display: block; }
         .modal-close { position: absolute; top: 20px; right: 25px; font-size: 2rem; color: white; cursor: pointer; z-index: 10001; transition: transform 0.3s; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
-        .modal-close:hover { transform: scale(1.1); }
-        .modal-counter { position: absolute; top: 25px; left: 25px; color: white; font-size: 0.9rem; letter-spacing: 2px; z-index: 10001; text-shadow: 0 2px 5px rgba(0,0,0,0.5); font-weight: 500; }
-        
-        .modal-nav {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            font-size: 3rem; color: white; cursor: pointer; z-index: 10001; padding: 20px; transition: all 0.3s; opacity: 0.8;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-        .modal-nav:hover { opacity: 1; transform: translateY(-50%) scale(1.1); }
+        .modal-counter { position: absolute; top: 25px; left: 25px; color: white; font-size: 0.9rem; letter-spacing: 2px; z-index: 10001; }
+        .modal-nav { position: absolute; top: 50%; transform: translateY(-50%); font-size: 3rem; color: white; cursor: pointer; z-index: 10001; padding: 20px; transition: all 0.3s; opacity: 0.8; }
         .modal-prev { left: 20px; }
         .modal-next { right: 20px; }
 
-        .modal-footer {
-            position: absolute; bottom: 20px; width: 100%; display: flex; justify-content: space-between; padding: 0 30px; color: rgba(255,255,255,0.8); font-size: 0.85rem; z-index: 10001; pointer-events: none; letter-spacing: 1px;
-        }
-        .modal-footer-icons i { margin-left: 20px; pointer-events: auto; cursor: pointer; transition: color 0.3s; }
-        .modal-footer-icons i:hover { color: white; }
-
-        /* Animasi Scroll */
-        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s ease-out, transform 1s ease-out; will-change: opacity, transform; }
+        /* Animation */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s ease-out, transform 1s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 1s ease-out, transform 1s ease-out; }
         .reveal-left.active { opacity: 1; transform: translateX(0); }
         .delay-1 { transition-delay: 0.15s; }
         .delay-2 { transition-delay: 0.3s; }
 
-        /* =========================================
-           RESPONSIF HP (PERBAIKAN UKURAN GAMBAR)
-           ========================================= */
+        /* Skills & Buttons */
+        .btn-cv { display: inline-flex; align-items: center; gap: 10px; padding: 12px 30px; margin-top: 2rem; background-color: var(--text-color); color: var(--hero-text-color); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; font-weight: 500; border: 1px solid var(--text-color); transition: all 0.3s ease; }
+        .btn-cv:hover { background-color: transparent; color: var(--text-color); }
+        .skills-container { margin-top: 3.5rem; width: 100%; }
+        .skills-title { font-size: 1.2rem; font-weight: 500; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; color: #111; }
+        .skills-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+        .skill-tag { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background-color: #ebebeb; border-radius: 50px; font-size: 0.95rem; color: var(--text-color); transition: all 0.3s; }
+        .skill-tag:hover { transform: translateY(-3px); background-color: var(--text-color); color: var(--hero-text-color); }
+
+        /* Mobile Adjustments */
         @media (max-width: 900px) {
-            /* Ubah layout jadi vertikal (teks atas, gambar bawah) */
-            .modal-container { flex-direction: column; height: 90vh; width: 95%; border-radius: 0; }
-            
-            /* Area Teks di HP */
-            .modal-text-side { 
-                flex: none; 
-                height: 40%; /* Teks mengambil 40% tinggi */
-                padding: 2rem 1.5rem;
-                background: #fafafa;
-            }
-            .modal-title { font-size: 1.8rem; margin-bottom: 1rem; }
-            .modal-desc { font-size: 1rem; line-height: 1.6; }
-            
-            /* Area Gambar di HP */
-            .modal-image-side { 
-                flex: none; 
-                height: 60%; /* Gambar mengambil 60% tinggi */
-                background-color: #000; /* Latar belakang hitam pekat */
-                position: relative;
-            }
-            
-            /* ----- PERBAIKAN UTAMA DI SINI ----- */
-            .modal-image {
-                /* Gunakan 'contain' agar gambar utuh dan tidak terpotong/terlalu besar */
-                object-fit: contain; 
-                background-color: #000; /* Memastikan area kosong tetap hitam */
-            }
-
-            /* Penyesuaian UI Navigasi di HP agar lebih terlihat */
-            .modal-close {
-                top: 15px; right: 15px; font-size: 1.8rem;
-                background: rgba(0,0,0,0.5); /* Tambah background transparan agar jelas */
-                width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;
-            }
-            .modal-counter { 
-                top: 20px; left: 20px; font-size: 0.85rem; 
-                background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 20px;
-            }
-            
-            /* Panah Navigasi di HP */
-            .modal-nav {
-                font-size: 2rem; padding: 10px;
-                background: rgba(0,0,0,0.5); /* Background lingkaran hitam transparan */
-                border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
-            }
-            .modal-prev { left: 15px; }
-            .modal-next { right: 15px; }
-
-            .modal-footer { display: none; } /* Sembunyikan footer di HP agar lebih bersih */
+            .modal-container { flex-direction: column; height: 95vh; width: 95%; border-radius: 8px; }
+            .modal-text-side { flex: none; height: auto; max-height: 45%; padding: 2.5rem 1.5rem; background: #fff; overflow-y: auto; }
+            .modal-title { font-size: 1.6rem; }
+            .modal-image-side { flex: 1; min-height: 300px; }
+            .modal-image { object-fit: contain; }
+            .modal-nav { font-size: 1.5rem; width: 40px; height: 40px; background: rgba(0,0,0,0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+            .modal-close { top: 10px; right: 10px; background: rgba(0,0,0,0.6); border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; }
         }
 
         @media (max-width: 768px) {
             .menu-toggle { display: flex; }
-            .nav-links { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: var(--bg-color); flex-direction: column; justify-content: center; align-items: center; gap: 3rem; transform: translateY(-100%); transition: transform 0.4s ease-in-out; }
+            .nav-links { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: var(--bg-color); flex-direction: column; justify-content: center; align-items: center; gap: 3rem; transform: translateY(-100%); transition: transform 0.4s ease; }
             .nav-links.active-menu { transform: translateY(0); }
             .nav-links a { color: var(--text-color) !important; font-size: 1.5rem; }
-            .nav-links a::after { display: none; }
             .hero h1 { font-size: 2.5rem; }
             .hero h1 span { font-size: 3rem; }
-            .hero { padding: 0 5%; }
-            nav { padding: 1.5rem 5%; }
         }
-
-/* =========================================
-           TOMBOL CV & KEAHLIAN (SKILLS)
-           ========================================= */
-        .btn-cv {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 30px;
-            margin-top: 2rem;
-            background-color: var(--text-color);
-            color: var(--hero-text-color);
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border: 1px solid var(--text-color);
-            transition: all 0.3s ease;
-        }
-
-        .btn-cv:hover {
-            background-color: transparent;
-            color: var(--text-color);
-        }
-
-        .skills-container {
-            margin-top: 3.5rem;
-            width: 100%;
-        }
-
-        .skills-title {
-            font-size: 1.2rem;
-            font-weight: 500;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #111;
-        }
-
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .skill-tag {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background-color: #ebebeb;
-            border-radius: 50px; /* Membuat sudutnya bulat sempurna */
-            font-size: 0.95rem;
-            color: var(--text-color);
-            transition: transform 0.3s, background-color 0.3s, color 0.3s;
-        }
-
-        .skill-tag:hover {
-            transform: translateY(-3px); /* Efek melayang saat disentuh */
-            background-color: var(--text-color);
-            color: var(--hero-text-color);
-        }
-/* =========================================
-   RESPONSIF HP (PERBAIKAN TAMPILAN TEKS & GAMBAR)
-   ========================================= */
-@media (max-width: 900px) {
-    /* Ubah layout jadi vertikal (teks atas, gambar bawah) */
-    .modal-container { 
-        flex-direction: column; 
-        height: 95vh; /* Sedikit lebih tinggi agar muat lebih banyak konten */
-        width: 95%; 
-        border-radius: 8px; /* Beri sedikit lengkungan agar manis */
-    }
-    
-    /* Area Teks di HP */
-    .modal-text-side { 
-        flex: none; 
-        height: auto; /* Biarkan tinggi menyesuaikan konten */
-        max-height: 45%; /* Batasi agar tidak memakan seluruh layar */
-        padding: 2.5rem 1.5rem 1.5rem 1.5rem; /* TAMBAHAN: padding atas 2.5rem agar judul turun */
-        background: #fff;
-        overflow-y: auto; /* Bisa scroll jika teks sangat panjang */
-    }
-
-    .modal-title { 
-        font-size: 1.6rem; 
-        margin-bottom: 0.8rem; 
-        line-height: 1.2;
-    }
-
-    .modal-desc { 
-        font-size: 0.95rem; 
-        line-height: 1.5; 
-    }
-    
-    /* Area Gambar di HP */
-    .modal-image-side { 
-        flex: 1; /* Ambil sisa ruang yang tersedia */
-        background-color: #000; 
-        position: relative;
-        min-height: 300px; /* Pastikan area gambar tetap ada */
-    }
-    
-    .modal-image {
-        object-fit: contain; 
-        background-color: #000;
-    }
-
-    /* Penyesuaian UI Navigasi di HP */
-    .modal-close {
-        top: 10px; 
-        right: 10px; 
-        font-size: 1.5rem;
-        background: rgba(0,0,0,0.6); 
-        width: 35px; 
-        height: 35px; 
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .modal-counter { 
-        top: 15px; 
-        left: 15px; 
-        font-size: 0.75rem; 
-        background: rgba(0,0,0,0.6); 
-        padding: 4px 12px; 
-        border-radius: 20px;
-    }
-    
-    .modal-nav {
-        font-size: 1.5rem; 
-        width: 40px; 
-        height: 40px;
-        background: rgba(0,0,0,0.4);
-        border-radius: 50%;
-    }
-
-    .modal-footer { display: none; } 
-}
     </style>
 </head>
 <body>
@@ -360,39 +121,39 @@
             <span class="bar"></span><span class="bar"></span><span class="bar"></span>
         </div>
         <div class="nav-links" id="nav-links">
-            <a href="#home">Beranda</a>
-            <a href="#about">Profil</a>
-            <a href="#portfolio">Karya</a>
-            <a href="#contact">Kontak</a>
+            <a href="#home">Home</a>
+            <a href="#about">Profile</a>
+            <a href="#portfolio">Works</a>
+            <a href="#contact">Contact</a>
         </div>
     </nav>
 
     <header id="home" class="hero">
         <div class="reveal-left">
-            <p class="hero-subtitle">Halo, Selamat Datang</p>
-            <h1>Saya <br><span>Junita Panjaitan</span></h1>
-            <p class="hero-quote">Seorang Arsitek Independen yang bersemangat menerjemahkan karakter Anda ke dalam desain ruang yang fungsional, minimalis, dan bermakna.</p>
+            <p class="hero-subtitle">Hello, Welcome</p>
+            <h1>I am <br><span>Junita Panjaitan</span></h1>
+            <p class="hero-quote">An Independent Architect passionate about translating your character into functional, minimalist, and meaningful space designs.</p>
         </div>
     </header>
 
     <section id="about">
-        <h2 class="section-title reveal">Profil Saya</h2>
+        <h2 class="section-title reveal">My Profile</h2>
         <div class="about-content">
             <div class="about-text reveal delay-1">
-                 <p>Saya percaya bahwa arsitektur bukan sekadar tentang membangun gedung, melainkan tentang merancang pengalaman hidup. Fokus saya adalah menciptakan harmoni antara cahaya alami, sirkulasi udara, dan material yang jujur.</p>
-                 <p>Sebagai seorang profesional independen, saya mengawal setiap proyek secara personal dari sketsa pertama hingga detail konstruksi terakhir. Mari berdiskusi tentang bagaimana kita bisa memaksimalkan potensi ruang Anda.</p>
+                 <p>I believe that architecture is not just about building structures, but about designing life experiences. My focus is on creating harmony between natural light, air circulation, and honest materials.</p>
+                 <p>As an independent professional, I personally oversee every project from the first sketch to the final construction detail. Let's discuss how we can maximize the potential of your space.</p>
                  
-                 <a href="file-cv-anda.pdf" target="_blank" class="btn-cv">
+                 <a href="your-cv-file.pdf" target="_blank" class="btn-cv">
                      <i class="fas fa-file-download"></i> Download CV
                  </a>
 
                  <div class="skills-container">
-                     <h3 class="skills-title">Keahlian & Perangkat</h3>
+                     <h3 class="skills-title">Skills & Tools</h3>
                      <div class="skills-grid">
                          <div class="skill-tag"><i class="fas fa-pen-nib"></i> AutoCAD</div>
                          <div class="skill-tag"><i class="fas fa-cube"></i> SketchUp & 3D Rendering</div>
-                         <div class="skill-tag"><i class="fas fa-swatchbook"></i> Material & Layouting</div>
                          <div class="skill-tag"><i class="fas fa-video"></i> Twinmotion</div>
+                         <div class="skill-tag"><i class="fas fa-swatchbook"></i> Material & Layouting</div>
                      </div>
                  </div>
             </div>
@@ -400,59 +161,54 @@
     </section>
 
     <section id="portfolio" style="background-color: #f4f4f4;">
-        <h2 class="section-title reveal">Karya Terpilih</h2>
+        <h2 class="section-title reveal">Selected Works</h2>
         <div class="portfolio-grid">
-            
             <div class="project-card reveal delay-1" data-id="project-1">
-                <img src="gambar1.1.png" alt="Proyek 1" class="project-image">
+                <img src="gambar1.1.png" alt="Project 1" class="project-image">
                 <div class="project-info">
-                    <h3 style="font-weight: 500; font-size: 1.3rem;">Interior and Furniture Living Room</h3>
-                    <p style="font-weight: 300; font-size: 0.9rem;">Klik untuk melihat detail proyek</p>
+                    <h3 style="font-weight: 500; font-size: 1.3rem;">Living Room Interior</h3>
+                    <p style="font-weight: 300; font-size: 0.9rem;">View project details</p>
                 </div>
             </div>
-            
             <div class="project-card reveal delay-2" data-id="project-2">
-                <img src="gambar2.5.png" alt="Proyek 2" class="project-image">
+                <img src="gambar2.5.png" alt="Project 2" class="project-image">
                 <div class="project-info">
-                    <h3 style="font-weight: 500; font-size: 1.3rem;">Interior and Furniture Kitchen</h3>
-                    <p style="font-weight: 300; font-size: 0.9rem;">Klik untuk melihat detail proyek</p>
+                    <h3 style="font-weight: 500; font-size: 1.3rem;">Kitchen Interior</h3>
+                    <p style="font-weight: 300; font-size: 0.9rem;">View project details</p>
                 </div>
             </div>
-            
             <div class="project-card reveal delay-1" data-id="project-3">
-                <img src="gambar3.1.png" alt="Proyek 3" class="project-image">
+                <img src="gambar3.1.png" alt="Project 3" class="project-image">
                 <div class="project-info">
-                    <h3 style="font-weight: 500; font-size: 1.3rem;">Dragon fruit Agrotourism</h3>
-                    <p style="font-weight: 300; font-size: 0.9rem;">Klik untuk melihat detail proyek</p>
+                    <h3 style="font-weight: 500; font-size: 1.3rem;">Dragon Fruit Agrotourism</h3>
+                    <p style="font-weight: 300; font-size: 0.9rem;">View project details</p>
                 </div>
             </div>
-
         </div>
     </section>
 
     <section id="contact" style="text-align: center; padding-bottom: 6rem;">
-        <h2 class="section-title reveal">Mari Berkolaborasi</h2>
-        <p class="reveal delay-1" style="font-size: 1.1rem; margin-bottom: 3rem; color: #555;">Punya ide hunian impian atau ruang yang ingin diwujudkan?<br>Mari berdiskusi lebih lanjut melalui kontak di bawah ini.</p>
-        
+        <h2 class="section-title reveal">Let's Collaborate</h2>
+        <p class="reveal delay-1" style="font-size: 1.1rem; margin-bottom: 3rem; color: #555;">Have a dream home idea or a space you want to bring to life?<br>Let's discuss it further through the contact details below.</p>
         <div class="contact-methods reveal delay-2" style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-            <a href="mailto:emailanda@domain.com" style="display: flex; align-items: center; gap: 10px; padding: 15px 35px; border: 1px solid var(--text-color); background: transparent; color: var(--text-color); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; transition: all 0.3s;">
-                <i class="fas fa-envelope"></i> Email Saya
+            <a href="mailto:yourname@domain.com" style="display: flex; align-items: center; gap: 10px; padding: 15px 35px; border: 1px solid var(--text-color); text-decoration: none; text-transform: uppercase; color: var(--text-color); font-weight: 500; transition: 0.3s;">
+                <i class="fas fa-envelope"></i> Email Me
             </a>
-            <a href="https://wa.me/6281234567890" target="_blank" style="display: flex; align-items: center; gap: 10px; padding: 15px 35px; background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--text-color); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; transition: all 0.3s;">
+            <a href="https://wa.me/yourphone" target="_blank" style="display: flex; align-items: center; gap: 10px; padding: 15px 35px; background-color: var(--text-color); color: var(--bg-color); text-decoration: none; text-transform: uppercase; font-weight: 500; transition: 0.3s;">
                 <i class="fab fa-whatsapp"></i> WhatsApp
             </a>
         </div>
     </section>
 
     <footer style="text-align: center; padding: 3rem; color: var(--accent-color); font-size: 0.9rem;">
-        <p>&copy; 2026 Junita Panjaitan. Dirancang dengan teliti.</p>
+        <p>&copy; 2026 Junita Panjaitan. Designed with precision.</p>
     </footer>
 
     <div class="modal" id="project-modal">
         <div class="modal-container">
             <div class="modal-text-side">
-                <h2 class="modal-title" id="modal-title">Judul Gambar</h2>
-                <p class="modal-desc" id="modal-desc">Deskripsi spesifik untuk gambar ini.</p>
+                <h2 class="modal-title" id="modal-title">Project Title</h2>
+                <p class="modal-desc" id="modal-desc">Detailed description goes here.</p>
             </div>
             <div class="modal-image-side">
                 <span class="modal-close" id="modal-close">&times;</span>
@@ -460,33 +216,36 @@
                 <i class="fas fa-chevron-left modal-nav modal-prev" id="modal-prev"></i>
                 <i class="fas fa-chevron-right modal-nav modal-next" id="modal-next"></i>
                 <img src="" alt="Project Image" class="modal-image" id="modal-image">
-                
-                <div class="modal-footer">
-                    <div id="modal-project-name">Portfolio Junita Panjaitan</div>
-                    <div class="modal-footer-icons">
-                        <i class="fab fa-facebook-f"></i>
-                        <i class="fab fa-twitter"></i>
-                        <i class="fab fa-pinterest-p"></i>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ... Logika Menu, ScrollSpy, dan Reveal (Tetap Sama) ...
-        const navbar = document.getElementById('navbar'); window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
-        const menuToggle = document.getElementById('mobile-menu'); const navLinksContainer = document.getElementById('nav-links'); const logoText = document.getElementById('logo-text'); const navLinks = document.querySelectorAll('.nav-links a');
-        menuToggle.addEventListener('click', () => { menuToggle.classList.toggle('is-active'); navLinksContainer.classList.toggle('active-menu'); if(navLinksContainer.classList.contains('active-menu')) { logoText.style.color = "var(--text-color)"; } else if (window.scrollY <= 50) { logoText.style.color = "var(--hero-text-color)"; } });
-        navLinks.forEach(link => { link.addEventListener('click', () => { menuToggle.classList.remove('is-active'); navLinksContainer.classList.remove('active-menu'); if (window.scrollY <= 50) { logoText.style.color = "var(--hero-text-color)"; }});});
-        const sections = document.querySelectorAll('header, section'); const navObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const currentId = entry.target.getAttribute('id'); navLinks.forEach(item => item.classList.remove('active')); const activeMenu = document.querySelector(`.nav-links a[href="#${currentId}"]`); if (activeMenu) { activeMenu.classList.add('active'); } } }); }, { root: null, rootMargin: '-40% 0px -60% 0px', threshold: 0 }); sections.forEach(section => { navObserver.observe(section); });
-        const observer = new IntersectionObserver((entries, observer) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); observer.unobserve(entry.target); } }); }, { root: null, rootMargin: '0px', threshold: 0.15 }); document.querySelectorAll('.reveal, .reveal-left').forEach(element => { observer.observe(element); });
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
 
+        // Mobile Menu toggle
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinksContainer = document.getElementById('nav-links');
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('is-active');
+            navLinksContainer.classList.toggle('active-menu');
+        });
 
-        // ==========================================
-        // LOGIKA MODAL (YANG DIPERBARUI UNTUK JUDUL/DESC PER GAMBAR)
-        // ==========================================
+        // Intersection Observer for animations
+        const observerOptions = { threshold: 0.15 };
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.reveal, .reveal-left').forEach(el => revealObserver.observe(el));
 
+        // Projects Data
         const projectsData = {
 'project-1': [
     {
@@ -548,46 +307,14 @@
     }
 ],
             'project-3': [
-                {
-                    url: "gambar3.1.png",
-                    title: "Masterplan Kawasan Agrowisata dengan Struktur Ikonik",
-                    desc: "Desain kawasan menampilkan bangunan utama berbentuk kubah dengan struktur lengkung sebagai pusat aktivitas. Tata lanskap simetris dengan jalur pedestrian terarah dan deretan tanaman produktif menciptakan komposisi rapi, fungsional, serta menyatu dengan lingkungan alam sekitar."
-                },
-                {
-                    url: "gambar3.2.png",
-                    title: "Area Parkir Modern dengan Kanopi Struktur Baja Lengkung",
-                    desc: "Area parkir dirancang luas dan tertata dengan sistem sirkulasi jelas antara mobil dan motor. Kanopi baja dengan atap transparan memberikan perlindungan sekaligus pencahayaan alami, sementara deretan vegetasi di sekelilingnya menghadirkan suasana teduh dan ramah lingkungan."
-                },
-                {
-                    url: "gambar3.3.png",
-                    title: "Gerbang Utama dengan Atap Green Roof",
-                    desc: "Gerbang ikonik ini menggunakan konsep atap hijau melengkung yang menyatu dengan alam. Desain ini mengombinasikan fungsi keamanan dengan estetika lingkungan yang asri sejak pintu masuk kawasan."
-                },
-                {
-                    url: "gambar3.4.png",
-                    title: "Pusat Informasi Beratap Sayap Dinamis",
-                    desc: "Bangunan pusat informasi ini menonjolkan atap modern berbentuk sayap dengan dinding kaca transparan. Ornamen pilar bertema organik memperkuat identitas arsitektur biofilik yang modern."
-                },
-                {
-                    url: "gambar3.5.png",
-                    title: "Paviliun Komunal dengan Fasad Kisi Kayu",
-                    desc: "Ruang terbuka ini menggunakan atap landai lebar dan fasad kisi-kisi kayu untuk sirkulasi udara optimal. Desainnya menciptakan area komunal yang teduh dengan permainan bayangan yang estetis."
-                },
-                {
-                    url: "gambar3.6.png",
-                    title: "Kolam Refleksi dan Area Bersantai",
-                    desc: "Area ini memadukan kolam air penyejuk dengan tempat duduk di bawah pohon buah. Penggunaan peneduh artistik menciptakan suasana rileks yang menyatu dengan lanskap produktif."
-                },
-                {
-                    url: "gambar3.7.png",
-                    title: "Taman Bermain Bertema Lingkaran",
-                    desc: "Taman bermain anak dengan zonasi melingkar yang rapi dan aman. Penataan ini mengintegrasikan fasilitas edukasi fisik ke dalam lingkungan hijau yang rimbun dan teratur."
-                },
-                {
-                    url: "gambar3.8.png",
-                    title: "Lanskap Rekreasi dan Kebun Edukasi",
-                    desc: "Area yang menggabungkan fasilitas bermain aktif dengan kebun buah produktif. Jalur pedestrian yang dinamis memudahkan pengunjung mengeksplorasi harmoni antara ruang sosial dan alam."
-                },
+                { url: "gambar3.1.png", title: "Agrotourism Masterplan", desc: "A symmetrical landscape design featuring an iconic dome pavilion as the central activity hub." },
+                { url: "gambar3.2.png", title: "Modern Parking Facility", desc: "Expansive parking area with a sleek steel canopy design and integrated vegetation." },
+                { url: "gambar3.3.png", title: "Green Roof Entrance", desc: "Eco-friendly entrance gate utilizing a curved green roof to blend security with nature." },
+                { url: "gambar3.4.png", title: "Information Center", desc: "Dynamic wing-shaped roof design with glass walls, emphasizing biophilic architecture." },
+                { url: "gambar3.5.png", title: "Communal Pavilion", desc: "An open pavilion with wooden slat facades for optimal air circulation and aesthetic shadows." },
+                { url: "gambar3.6.png", title: "Reflection Pool Area", desc: "A cooling microclimate feature surrounded by productive fruit trees and relaxation zones." },
+                { url: "gambar3.7.png", title: "Circular Playground", desc: "Safe and organized circular play zones integrated into a lush green environment." },
+                { url: "gambar3.8.png", title: "Educational Landscape", desc: "A harmonious blend of active play areas and productive orchards for nature-based learning." }
             ]
         };
 
@@ -596,59 +323,41 @@
         const modalTitle = document.getElementById('modal-title');
         const modalDesc = document.getElementById('modal-desc');
         const modalCounter = document.getElementById('modal-counter');
-        const closeBtn = document.getElementById('modal-close');
-        const prevBtn = document.getElementById('modal-prev');
-        const nextBtn = document.getElementById('modal-next');
-        const projectCards = document.querySelectorAll('.project-card');
+        let currentProject = [];
+        let currentIndex = 0;
 
-        let currentProjectData = [];
-        let currentImageIndex = 0;
-
-        function updateModalContent() {
-            const currentItem = currentProjectData[currentImageIndex];
-            modalImg.src = currentItem.url;
-            modalTitle.innerText = currentItem.title;
-            modalDesc.innerText = currentItem.desc;
-            modalCounter.innerText = `${currentImageIndex + 1} of ${currentProjectData.length}`;
+        function updateModal() {
+            const item = currentProject[currentIndex];
+            modalImg.src = item.url;
+            modalTitle.innerText = item.title;
+            modalDesc.innerText = item.desc;
+            modalCounter.innerText = `${currentIndex + 1} of ${currentProject.length}`;
         }
 
-        projectCards.forEach(card => {
+        document.querySelectorAll('.project-card').forEach(card => {
             card.addEventListener('click', () => {
-                const projectId = card.getAttribute('data-id');
-                const data = projectsData[projectId];
-
-                if(data && data.length > 0) {
-                    currentProjectData = data; 
-                    currentImageIndex = 0; 
-                    
-                    updateModalContent();
-                    modal.classList.add('show');
-                    document.body.style.overflow = 'hidden'; 
-                }
+                const id = card.getAttribute('data-id');
+                currentProject = projectsData[id];
+                currentIndex = 0;
+                updateModal();
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
             });
         });
 
-        closeBtn.addEventListener('click', () => {
+        document.getElementById('modal-close').addEventListener('click', () => {
             modal.classList.remove('show');
-            document.body.style.overflow = 'auto'; 
+            document.body.style.overflow = 'auto';
         });
 
-        nextBtn.addEventListener('click', () => {
-            currentImageIndex++;
-            if (currentImageIndex >= currentProjectData.length) currentImageIndex = 0; 
-            updateModalContent();
-        });
-        prevBtn.addEventListener('click', () => {
-            currentImageIndex--;
-            if (currentImageIndex < 0) currentImageIndex = currentProjectData.length - 1; 
-            updateModalContent();
+        document.getElementById('modal-next').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % currentProject.length;
+            updateModal();
         });
 
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('show');
-                document.body.style.overflow = 'auto';
-            }
+        document.getElementById('modal-prev').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + currentProject.length) % currentProject.length;
+            updateModal();
         });
     </script>
 </body>
