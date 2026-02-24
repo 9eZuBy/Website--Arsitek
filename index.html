@@ -7,20 +7,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* CSS Reset & Variables */
+        /* CSS Reset & Variabel */
         :root {
             --bg-color: #faf9f6;
             --text-color: #333333;
             --accent-color: #7a7a7a;
             --hero-text-color: #ffffff; 
-            --modal-bg: rgba(20, 20, 20, 0.99);
+            --modal-bg: rgba(20, 20, 20, 0.99); /* Background modal lebih gelap */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Jost', sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; overflow-x: hidden; }
         html { scroll-behavior: smooth; }
 
-        /* Navigation */
+        /* Navigasi Desktop & Mobile (Tetap sama) */
         nav { position: fixed; top: 0; width: 100%; padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; background: transparent; z-index: 100; transition: all 0.4s ease; }
         nav.scrolled { padding: 1rem 5%; background: rgba(250, 249, 246, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         nav .logo { font-size: 1.4rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--hero-text-color); transition: color 0.4s ease; z-index: 101; }
@@ -39,7 +39,7 @@
         .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
         .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background-color: var(--text-color); }
 
-        /* Sections */
+        /* Section Layouts (Tetap sama) */
         .hero { position: relative; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; text-align: left; padding: 0 10%; color: var(--hero-text-color); overflow: hidden; }
         .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('https://images.unsplash.com/photo-1600210491369-e753d80a41f3?q=80&w=1600&auto=format&fit=crop') no-repeat center center/cover; filter: blur(3px); z-index: -2; transform: scale(1.1); }
         .hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 100%); z-index: -1; }
@@ -53,6 +53,7 @@
         .about-content { display: flex; gap: 4rem; align-items: center; flex-wrap: wrap; }
         .about-text { flex: 1 1 400px; }
         .about-text p { font-size: 1.1rem; color: #555; margin-bottom: 1.5rem; line-height: 1.8; }
+        .about-image { flex: 1 1 400px; width: 100%; height: 500px; object-fit: cover; border-radius: 4px; }
         .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; }
         .project-card { overflow: hidden; border-radius: 4px; cursor: pointer; position: relative; }
         .project-image { width: 100%; height: 450px; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
@@ -60,57 +61,295 @@
         .project-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 2.5rem; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%); color: white; opacity: 0; transform: translateY(20px); transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); pointer-events: none; }
         .project-card:hover .project-info { opacity: 1; transform: translateY(0); }
         
-        /* Modal Styles */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--modal-bg); z-index: 9999; opacity: 0; transition: opacity 0.4s ease; backdrop-filter: blur(8px); align-items: center; justify-content: center; }
+        /* =========================================
+           MODAL GALERI (DESKTOP DEFAULT)
+           ========================================= */
+        .modal {
+            display: none; 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--modal-bg);
+            z-index: 9999; opacity: 0; transition: opacity 0.4s ease;
+            backdrop-filter: blur(8px);
+            align-items: center; justify-content: center;
+        }
         .modal.show { display: flex; opacity: 1; }
-        .modal-container { width: 90%; height: 85vh; background-color: #fff; display: flex; box-shadow: 0 25px 50px rgba(0,0,0,0.7); position: relative; overflow: hidden; border-radius: 4px; }
-        .modal-text-side { flex: 1; padding: 4rem; display: flex; flex-direction: column; justify-content: center; background-color: #fff; overflow-y: auto; }
+
+        .modal-container {
+            width: 90%; /* Sedikit lebih lebar di desktop */
+            height: 85vh;
+            background-color: #fff;
+            display: flex;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        /* Sisi Teks (Kiri di Laptop) */
+        .modal-text-side {
+            flex: 1;
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: #fff;
+            overflow-y: auto;
+        }
         .modal-title { font-size: 2.5rem; font-weight: 400; margin-bottom: 1.5rem; color: #111; }
         .modal-desc { font-size: 1.1rem; font-weight: 300; color: #555; line-height: 1.8; font-style: italic; }
-        .modal-image-side { flex: 1.6; background-color: #111; position: relative; display: flex; align-items: center; justify-content: center; }
-        .modal-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        /* Sisi Gambar (Kanan di Laptop) */
+        .modal-image-side {
+            flex: 1.6; /* Gambar sedikit lebih dominan di desktop */
+            background-color: #111; /* Background gelap untuk area gambar */
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-image { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; /* Di desktop tetap cover agar penuh */
+            display: block; 
+        }
+
+        /* UI Navigasi Modal */
         .modal-close { position: absolute; top: 20px; right: 25px; font-size: 2rem; color: white; cursor: pointer; z-index: 10001; transition: transform 0.3s; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
-        .modal-counter { position: absolute; top: 25px; left: 25px; color: white; font-size: 0.9rem; letter-spacing: 2px; z-index: 10001; }
-        .modal-nav { position: absolute; top: 50%; transform: translateY(-50%); font-size: 3rem; color: white; cursor: pointer; z-index: 10001; padding: 20px; transition: all 0.3s; opacity: 0.8; }
+        .modal-close:hover { transform: scale(1.1); }
+        .modal-counter { position: absolute; top: 25px; left: 25px; color: white; font-size: 0.9rem; letter-spacing: 2px; z-index: 10001; text-shadow: 0 2px 5px rgba(0,0,0,0.5); font-weight: 500; }
+        
+        .modal-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            font-size: 3rem; color: white; cursor: pointer; z-index: 10001; padding: 20px; transition: all 0.3s; opacity: 0.8;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .modal-nav:hover { opacity: 1; transform: translateY(-50%) scale(1.1); }
         .modal-prev { left: 20px; }
         .modal-next { right: 20px; }
 
-        /* Animation */
-        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s ease-out, transform 1s ease-out; }
+        .modal-footer {
+            position: absolute; bottom: 20px; width: 100%; display: flex; justify-content: space-between; padding: 0 30px; color: rgba(255,255,255,0.8); font-size: 0.85rem; z-index: 10001; pointer-events: none; letter-spacing: 1px;
+        }
+        .modal-footer-icons i { margin-left: 20px; pointer-events: auto; cursor: pointer; transition: color 0.3s; }
+        .modal-footer-icons i:hover { color: white; }
+
+        /* Animasi Scroll */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s ease-out, transform 1s ease-out; will-change: opacity, transform; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 1s ease-out, transform 1s ease-out; }
         .reveal-left.active { opacity: 1; transform: translateX(0); }
         .delay-1 { transition-delay: 0.15s; }
         .delay-2 { transition-delay: 0.3s; }
 
-        /* Skills & Buttons */
-        .btn-cv { display: inline-flex; align-items: center; gap: 10px; padding: 12px 30px; margin-top: 2rem; background-color: var(--text-color); color: var(--hero-text-color); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; font-weight: 500; border: 1px solid var(--text-color); transition: all 0.3s ease; }
-        .btn-cv:hover { background-color: transparent; color: var(--text-color); }
-        .skills-container { margin-top: 3.5rem; width: 100%; }
-        .skills-title { font-size: 1.2rem; font-weight: 500; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; color: #111; }
-        .skills-grid { display: flex; flex-wrap: wrap; gap: 12px; }
-        .skill-tag { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background-color: #ebebeb; border-radius: 50px; font-size: 0.95rem; color: var(--text-color); transition: all 0.3s; }
-        .skill-tag:hover { transform: translateY(-3px); background-color: var(--text-color); color: var(--hero-text-color); }
-
-        /* Mobile Adjustments */
+        /* =========================================
+           RESPONSIF HP (PERBAIKAN UKURAN GAMBAR)
+           ========================================= */
         @media (max-width: 900px) {
-            .modal-container { flex-direction: column; height: 95vh; width: 95%; border-radius: 8px; }
-            .modal-text-side { flex: none; height: auto; max-height: 45%; padding: 2.5rem 1.5rem; background: #fff; overflow-y: auto; }
-            .modal-title { font-size: 1.6rem; }
-            .modal-image-side { flex: 1; min-height: 300px; }
-            .modal-image { object-fit: contain; }
-            .modal-nav { font-size: 1.5rem; width: 40px; height: 40px; background: rgba(0,0,0,0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-            .modal-close { top: 10px; right: 10px; background: rgba(0,0,0,0.6); border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; }
+            /* Ubah layout jadi vertikal (teks atas, gambar bawah) */
+            .modal-container { flex-direction: column; height: 90vh; width: 95%; border-radius: 0; }
+            
+            /* Area Teks di HP */
+            .modal-text-side { 
+                flex: none; 
+                height: 40%; /* Teks mengambil 40% tinggi */
+                padding: 2rem 1.5rem;
+                background: #fafafa;
+            }
+            .modal-title { font-size: 1.8rem; margin-bottom: 1rem; }
+            .modal-desc { font-size: 1rem; line-height: 1.6; }
+            
+            /* Area Gambar di HP */
+            .modal-image-side { 
+                flex: none; 
+                height: 60%; /* Gambar mengambil 60% tinggi */
+                background-color: #000; /* Latar belakang hitam pekat */
+                position: relative;
+            }
+            
+            /* ----- PERBAIKAN UTAMA DI SINI ----- */
+            .modal-image {
+                /* Gunakan 'contain' agar gambar utuh dan tidak terpotong/terlalu besar */
+                object-fit: contain; 
+                background-color: #000; /* Memastikan area kosong tetap hitam */
+            }
+
+            /* Penyesuaian UI Navigasi di HP agar lebih terlihat */
+            .modal-close {
+                top: 15px; right: 15px; font-size: 1.8rem;
+                background: rgba(0,0,0,0.5); /* Tambah background transparan agar jelas */
+                width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;
+            }
+            .modal-counter { 
+                top: 20px; left: 20px; font-size: 0.85rem; 
+                background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 20px;
+            }
+            
+            /* Panah Navigasi di HP */
+            .modal-nav {
+                font-size: 2rem; padding: 10px;
+                background: rgba(0,0,0,0.5); /* Background lingkaran hitam transparan */
+                border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
+            }
+            .modal-prev { left: 15px; }
+            .modal-next { right: 15px; }
+
+            .modal-footer { display: none; } /* Sembunyikan footer di HP agar lebih bersih */
         }
 
         @media (max-width: 768px) {
             .menu-toggle { display: flex; }
-            .nav-links { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: var(--bg-color); flex-direction: column; justify-content: center; align-items: center; gap: 3rem; transform: translateY(-100%); transition: transform 0.4s ease; }
+            .nav-links { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: var(--bg-color); flex-direction: column; justify-content: center; align-items: center; gap: 3rem; transform: translateY(-100%); transition: transform 0.4s ease-in-out; }
             .nav-links.active-menu { transform: translateY(0); }
             .nav-links a { color: var(--text-color) !important; font-size: 1.5rem; }
+            .nav-links a::after { display: none; }
             .hero h1 { font-size: 2.5rem; }
             .hero h1 span { font-size: 3rem; }
+            .hero { padding: 0 5%; }
+            nav { padding: 1.5rem 5%; }
         }
+
+/* =========================================
+           TOMBOL CV & KEAHLIAN (SKILLS)
+           ========================================= */
+        .btn-cv {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            margin-top: 2rem;
+            background-color: var(--text-color);
+            color: var(--hero-text-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cv:hover {
+            background-color: transparent;
+            color: var(--text-color);
+        }
+
+        .skills-container {
+            margin-top: 3.5rem;
+            width: 100%;
+        }
+
+        .skills-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #111;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill-tag {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: #ebebeb;
+            border-radius: 50px; /* Membuat sudutnya bulat sempurna */
+            font-size: 0.95rem;
+            color: var(--text-color);
+            transition: transform 0.3s, background-color 0.3s, color 0.3s;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-3px); /* Efek melayang saat disentuh */
+            background-color: var(--text-color);
+            color: var(--hero-text-color);
+        }
+/* =========================================
+   RESPONSIF HP (PERBAIKAN TAMPILAN TEKS & GAMBAR)
+   ========================================= */
+@media (max-width: 900px) {
+    /* Ubah layout jadi vertikal (teks atas, gambar bawah) */
+    .modal-container { 
+        flex-direction: column; 
+        height: 95vh; /* Sedikit lebih tinggi agar muat lebih banyak konten */
+        width: 95%; 
+        border-radius: 8px; /* Beri sedikit lengkungan agar manis */
+    }
+    
+    /* Area Teks di HP */
+    .modal-text-side { 
+        flex: none; 
+        height: auto; /* Biarkan tinggi menyesuaikan konten */
+        max-height: 45%; /* Batasi agar tidak memakan seluruh layar */
+        padding: 2.5rem 1.5rem 1.5rem 1.5rem; /* TAMBAHAN: padding atas 2.5rem agar judul turun */
+        background: #fff;
+        overflow-y: auto; /* Bisa scroll jika teks sangat panjang */
+    }
+
+    .modal-title { 
+        font-size: 1.6rem; 
+        margin-bottom: 0.8rem; 
+        line-height: 1.2;
+    }
+
+    .modal-desc { 
+        font-size: 0.95rem; 
+        line-height: 1.5; 
+    }
+    
+    /* Area Gambar di HP */
+    .modal-image-side { 
+        flex: 1; /* Ambil sisa ruang yang tersedia */
+        background-color: #000; 
+        position: relative;
+        min-height: 300px; /* Pastikan area gambar tetap ada */
+    }
+    
+    .modal-image {
+        object-fit: contain; 
+        background-color: #000;
+    }
+
+    /* Penyesuaian UI Navigasi di HP */
+    .modal-close {
+        top: 10px; 
+        right: 10px; 
+        font-size: 1.5rem;
+        background: rgba(0,0,0,0.6); 
+        width: 35px; 
+        height: 35px; 
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-counter { 
+        top: 15px; 
+        left: 15px; 
+        font-size: 0.75rem; 
+        background: rgba(0,0,0,0.6); 
+        padding: 4px 12px; 
+        border-radius: 20px;
+    }
+    
+    .modal-nav {
+        font-size: 1.5rem; 
+        width: 40px; 
+        height: 40px;
+        background: rgba(0,0,0,0.4);
+        border-radius: 50%;
+    }
+
+    .modal-footer { display: none; } 
+}
 /* Floating Contact Container */
 .fab-container {
     position: fixed;
@@ -175,6 +414,28 @@
     .fab-container { right: 20px; bottom: 30px; }
     .fab-item { width: 50px; height: 50px; }
     .fab-item::after { border-top-width: 10px; bottom: -6px; }
+}
+
+/* Pastikan indikator garis bawah muncul kembali */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: var(--hero-text-color);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+/* Garis bawah akan melebar 100% saat kelas .active ditambahkan oleh JS */
+.nav-links a.active::after {
+    width: 100%;
+}
+
+nav.scrolled .nav-links a.active::after {
+    background-color: var(--text-color);
 }
     </style>
 </head>
@@ -285,21 +546,58 @@
         </div>
     </div>
 
-    <script>
-        // Navbar scroll effect
+<script>
+        // 1. Element Selector
         const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
-
-        // Mobile Menu toggle
         const menuToggle = document.getElementById('mobile-menu');
         const navLinksContainer = document.getElementById('nav-links');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const sections = document.querySelectorAll('header, section');
+
+        // 2. Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // 3. Mobile Menu Toggle Logic
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('is-active');
             navLinksContainer.classList.toggle('active-menu');
         });
 
-        // Intersection Observer for animations
-        const observerOptions = { threshold: 0.15 };
+        // 4. FIX ANDROID: Close menu when a link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('is-active');
+                navLinksContainer.classList.remove('active-menu');
+            });
+        });
+
+        // 5. ScrollSpy Logic: Update underline indicator on scroll
+        const scrollObserverOptions = {
+            root: null,
+            rootMargin: '-25% 0px -65% 0px', // Area sensitivitas deteksi section
+            threshold: 0
+        };
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, scrollObserverOptions);
+
+        sections.forEach(section => scrollObserver.observe(section));
+
+        // 6. Reveal Animations for Elements
+        const revealObserverOptions = { threshold: 0.15 };
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -307,70 +605,71 @@
                     revealObserver.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, revealObserverOptions);
+
         document.querySelectorAll('.reveal, .reveal-left').forEach(el => revealObserver.observe(el));
 
-        // Projects Data
+        // 7. Projects Data
         const projectsData = {
-'project-1': [
-    {
-        url: "gambar1.1.png",
-        title: "Modern Living Room Interior",
-        desc: "A modern living space featuring a dark brown L-shaped sofa as the primary element. The blend of vertical wood panels, high-reaching curtains, and a warm color palette creates an elegant and cozy atmosphere. The minimalist coffee table combines glass and wood for a light yet bold look, while ornamental plants add a calming natural touch."
-    },
-    {
-        url: "gambar1.2.png",
-        title: "Contemporary Living Space",
-        desc: "A contemporary living room with an elegant composition of warm and dark tones. Vertical wood panel accents and a black-and-white art gallery add artistic character to the walls. The dark brown L-shaped sofa and minimalist coffee table create a neat, high-class appearance, complemented by high curtains for a dramatic yet homey feel."
-    },
-    {
-        url: "gambar1.3.png",
-        title: "Artistic Accent Wall",
-        desc: "An accent wall featuring vertical wood panels that bring warmth and elegance to the room. Neatly arranged black-and-white artwork serves as an artistic focal point, supported by soft lighting that enhances a serene and comfortable ambiance."
-    },
-    {
-        url: "gambar1.4.png",
-        title: "Minimalist Living Room Design",
-        desc: "A minimalist living room centered around a dark L-shaped sofa. A neutral palette of grey, white, and wood brown creates a sophisticated atmosphere. The simple metal-framed coffee table adds a clean, modern touch, while high curtains and textured panels provide a sense of refined comfort."
-    },
-    {
-        url: "gambar1.5.png",
-        title: "Modular Comfort Zone",
-        desc: "A dark modular sofa stands as the centerpiece of this modern and elegant design. Paired with a minimalist coffee table, vertical wood accents, and neutral curtains, the space feels organized, warm, and perfect for relaxation."
-    }
-],
-'project-2': [
-    {
-        url: "gambar2.1.png",
-        title: "Ambient Lighting on Modern Kitchen Island",
-        desc: "A kitchen island area featuring warm evening lighting, highlighting a fruit bowl focal point alongside decorative plants and bottles that enhance the modern, elegant aesthetic."
-    },
-    {
-        url: "gambar2.2.png",
-        title: "Decorative Shelving with Wood Accents",
-        desc: "Minimalist wall shelving combining vases and black-and-white photo frames. The vertical wood panels and under-shelf glass racks create a tidy and aesthetic display."
-    },
-    {
-        url: "gambar2.3.png",
-        title: "Natural Light Optimization",
-        desc: "The sink and stove area maximize natural light through large windows, creating a bright, fresh atmosphere that seamlessly connects with the greenery outside."
-    },
-    {
-        url: "gambar2.4.png",
-        title: "Minimalist Kitchen Set with Warm Lighting",
-        desc: "A comprehensive view of the kitchen set featuring clean white cabinets, vertical wood accents, and warm lighting that creates a cozy and inviting atmosphere at night."
-    },
-    {
-        url: "gambar2.5.png",
-        title: "Open Plan Kitchen Concept",
-        desc: "An open-plan kitchen perspective connected to the family area, featuring a kitchen island as the activity hub with a spacious layout and modern ceiling lighting."
-    },
-    {
-        url: "gambar2.6.png",
-        title: "Harmonized Partitions and Natural Elements",
-        desc: "A detailed view showing decorative wood partitions, natural pendant lights, and a harmonious furniture composition that is both functional and stylish."
-    }
-],
+            'project-1': [
+                {
+                    url: "gambar1.1.png",
+                    title: "Modern Living Room Interior",
+                    desc: "A modern living space featuring a dark brown L-shaped sofa as the primary element. The blend of vertical wood panels, high-reaching curtains, and a warm color palette creates an elegant and cozy atmosphere."
+                },
+                {
+                    url: "gambar1.2.png",
+                    title: "Contemporary Living Space",
+                    desc: "A contemporary living room with an elegant composition of warm and dark tones. Vertical wood panel accents and a black-and-white art gallery add artistic character to the walls."
+                },
+                {
+                    url: "gambar1.3.png",
+                    title: "Artistic Accent Wall",
+                    desc: "An accent wall featuring vertical wood panels that bring warmth and elegance to the room. Neatly arranged black-and-white artwork serves as an artistic focal point."
+                },
+                {
+                    url: "gambar1.4.png",
+                    title: "Minimalist Living Room Design",
+                    desc: "A minimalist living room centered around a dark L-shaped sofa. A neutral palette of grey, white, and wood brown creates a sophisticated atmosphere."
+                },
+                {
+                    url: "gambar1.5.png",
+                    title: "Modular Comfort Zone",
+                    desc: "A dark modular sofa stands as the centerpiece of this modern and elegant design. Paired with a minimalist coffee table, it creates a space perfect for relaxation."
+                }
+            ],
+            'project-2': [
+                {
+                    url: "gambar2.1.png",
+                    title: "Ambient Lighting on Modern Kitchen Island",
+                    desc: "A kitchen island area featuring warm evening lighting, highlighting a fruit bowl focal point alongside decorative elements that enhance the modern aesthetic."
+                },
+                {
+                    url: "gambar2.2.png",
+                    title: "Decorative Shelving with Wood Accents",
+                    desc: "Minimalist wall shelving combining vases and photo frames. The vertical wood panels create a tidy and aesthetic display."
+                },
+                {
+                    url: "gambar2.3.png",
+                    title: "Natural Light Optimization",
+                    desc: "The sink and stove area maximize natural light through large windows, creating a bright and fresh atmosphere."
+                },
+                {
+                    url: "gambar2.4.png",
+                    title: "Minimalist Kitchen Set with Warm Lighting",
+                    desc: "A comprehensive view of the kitchen set featuring clean white cabinets and warm lighting that creates a cozy atmosphere at night."
+                },
+                {
+                    url: "gambar2.5.png",
+                    title: "Open Plan Kitchen Concept",
+                    desc: "An open-plan kitchen perspective connected to the family area, featuring a kitchen island as the activity hub."
+                },
+                {
+                    url: "gambar2.6.png",
+                    title: "Harmonized Partitions and Natural Elements",
+                    desc: "A detailed view showing decorative wood partitions and natural pendant lights for a functional yet stylish kitchen."
+                }
+            ],
             'project-3': [
                 { url: "gambar3.1.png", title: "Agrotourism Masterplan", desc: "A symmetrical landscape design featuring an iconic dome pavilion as the central activity hub." },
                 { url: "gambar3.2.png", title: "Modern Parking Facility", desc: "Expansive parking area with a sleek steel canopy design and integrated vegetation." },
@@ -383,6 +682,7 @@
             ]
         };
 
+        // 8. Modal Gallery Logic
         const modal = document.getElementById('project-modal');
         const modalImg = document.getElementById('modal-image');
         const modalTitle = document.getElementById('modal-title');
@@ -393,20 +693,24 @@
 
         function updateModal() {
             const item = currentProject[currentIndex];
-            modalImg.src = item.url;
-            modalTitle.innerText = item.title;
-            modalDesc.innerText = item.desc;
-            modalCounter.innerText = `${currentIndex + 1} of ${currentProject.length}`;
+            if (item) {
+                modalImg.src = item.url;
+                modalTitle.innerText = item.title;
+                modalDesc.innerText = item.desc;
+                modalCounter.innerText = `${currentIndex + 1} of ${currentProject.length}`;
+            }
         }
 
         document.querySelectorAll('.project-card').forEach(card => {
             card.addEventListener('click', () => {
                 const id = card.getAttribute('data-id');
-                currentProject = projectsData[id];
+                currentProject = projectsData[id] || [];
                 currentIndex = 0;
-                updateModal();
-                modal.classList.add('show');
-                document.body.style.overflow = 'hidden';
+                if (currentProject.length > 0) {
+                    updateModal();
+                    modal.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                }
             });
         });
 
@@ -423,6 +727,14 @@
         document.getElementById('modal-prev').addEventListener('click', () => {
             currentIndex = (currentIndex - 1 + currentProject.length) % currentProject.length;
             updateModal();
+        });
+
+        // Close modal when clicking outside the container
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
         });
     </script>
 
