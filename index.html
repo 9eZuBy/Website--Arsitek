@@ -448,6 +448,30 @@ nav.scrolled .nav-links a.active::after {
     pointer-events: none;
     transform: translateY(20px);
 }
+.project-card {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.project-info h3 {
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.project-info h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background: #fff;
+}
     </style>
 </head>
 <body>
