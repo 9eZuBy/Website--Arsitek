@@ -111,6 +111,71 @@
             .hero h1 { font-size: 2.5rem; }
             .hero h1 span { font-size: 3rem; }
         }
+/* Floating Contact Container */
+.fab-container {
+    position: fixed;
+    bottom: 40px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    z-index: 999;
+}
+
+.fab-item {
+    width: 60px;
+    height: 60px;
+    background-color: var(--text-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    
+    /* Bentuk lingkaran di atas */
+    border-radius: 50% 50% 50% 50%;
+    position: relative;
+}
+
+/* Tonjolan Runcing di Tengah Bawah */
+.fab-item::after {
+    content: '';
+    position: absolute;
+    bottom: -8px; /* Mengatur seberapa jauh tonjolan keluar */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 12px solid var(--text-color); /* Warna mengikuti background tombol */
+    transition: border-top-color 0.3s ease;
+}
+
+.fab-item i {
+    font-size: 1.5rem;
+    z-index: 2;
+}
+
+.fab-item:hover {
+    transform: translateY(-5px);
+}
+
+/* Update warna tonjolan saat hover */
+.fab-item.wa:hover { background-color: #25D366; }
+.fab-item.wa:hover::after { border-top-color: #25D366; }
+
+.fab-item.mail:hover { background-color: #555; }
+.fab-item.mail:hover::after { border-top-color: #555; }
+
+/* Responsif Mobile */
+@media (max-width: 768px) {
+    .fab-container { right: 20px; bottom: 30px; }
+    .fab-item { width: 50px; height: 50px; }
+    .fab-item::after { border-top-width: 10px; bottom: -6px; }
+}
     </style>
 </head>
 <body>
@@ -360,5 +425,16 @@
             updateModal();
         });
     </script>
+
+<div class="fab-container">
+    <a href="#contact" class="fab-item" title="Contact via WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <a href="#contact" class="fab-item" title="Contact via Email">
+        <i class="fas fa-envelope"></i>
+    </a>
+</div>
+
 </body>
 </html>
