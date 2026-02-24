@@ -437,6 +437,16 @@
 nav.scrolled .nav-links a.active::after {
     background-color: var(--text-color);
 }
+.fab-container {
+    /* ... kode lama Anda ... */
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.fab-container.hide {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+}
     </style>
 </head>
 <body>
@@ -553,6 +563,7 @@ nav.scrolled .nav-links a.active::after {
         const navLinksContainer = document.getElementById('nav-links');
         const navLinks = document.querySelectorAll('.nav-links a');
         const sections = document.querySelectorAll('header, section');
+        const fabContainer = document.querySelector('.fab-container'); // Selector untuk FAB
 
         // 2. Navbar Scroll Effect
         window.addEventListener('scroll', () => {
@@ -561,8 +572,15 @@ nav.scrolled .nav-links a.active::after {
 
         // 3. Mobile Menu Toggle Logic
         menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('is-active');
+            const isActive = menuToggle.classList.toggle('is-active');
             navLinksContainer.classList.toggle('active-menu');
+            
+            // PERBAIKAN: Sembunyikan FAB saat menu dibuka, munculkan saat ditutup
+            if (isActive) {
+                fabContainer.classList.add('hide');
+            } else {
+                fabContainer.classList.remove('hide');
+            }
         });
 
         // 4. FIX ANDROID: Close menu when a link is clicked
@@ -570,13 +588,14 @@ nav.scrolled .nav-links a.active::after {
             link.addEventListener('click', () => {
                 menuToggle.classList.remove('is-active');
                 navLinksContainer.classList.remove('active-menu');
+                fabContainer.classList.remove('hide'); // Munculkan kembali FAB setelah navigasi
             });
         });
 
         // 5. ScrollSpy Logic: Update underline indicator on scroll
         const scrollObserverOptions = {
             root: null,
-            rootMargin: '-25% 0px -65% 0px', // Area sensitivitas deteksi section
+            rootMargin: '-25% 0px -65% 0px',
             threshold: 0
         };
 
@@ -596,8 +615,7 @@ nav.scrolled .nav-links a.active::after {
 
         sections.forEach(section => scrollObserver.observe(section));
 
-        // 6. Reveal Animations for Elements
-        const revealObserverOptions = { threshold: 0.15 };
+        // 6. Reveal Animations
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -605,80 +623,36 @@ nav.scrolled .nav-links a.active::after {
                     revealObserver.unobserve(entry.target);
                 }
             });
-        }, revealObserverOptions);
+        }, { threshold: 0.15 });
 
         document.querySelectorAll('.reveal, .reveal-left').forEach(el => revealObserver.observe(el));
 
-        // 7. Projects Data
+        // 7. Projects Data (Interior & Agrotourism)
         const projectsData = {
             'project-1': [
-                {
-                    url: "gambar1.1.png",
-                    title: "Modern Living Room Interior",
-                    desc: "A modern living space featuring a dark brown L-shaped sofa as the primary element. The blend of vertical wood panels, high-reaching curtains, and a warm color palette creates an elegant and cozy atmosphere."
-                },
-                {
-                    url: "gambar1.2.png",
-                    title: "Contemporary Living Space",
-                    desc: "A contemporary living room with an elegant composition of warm and dark tones. Vertical wood panel accents and a black-and-white art gallery add artistic character to the walls."
-                },
-                {
-                    url: "gambar1.3.png",
-                    title: "Artistic Accent Wall",
-                    desc: "An accent wall featuring vertical wood panels that bring warmth and elegance to the room. Neatly arranged black-and-white artwork serves as an artistic focal point."
-                },
-                {
-                    url: "gambar1.4.png",
-                    title: "Minimalist Living Room Design",
-                    desc: "A minimalist living room centered around a dark L-shaped sofa. A neutral palette of grey, white, and wood brown creates a sophisticated atmosphere."
-                },
-                {
-                    url: "gambar1.5.png",
-                    title: "Modular Comfort Zone",
-                    desc: "A dark modular sofa stands as the centerpiece of this modern and elegant design. Paired with a minimalist coffee table, it creates a space perfect for relaxation."
-                }
+                { url: "gambar1.1.png", title: "Modern Living Room Interior", desc: "A modern living space featuring a dark brown L-shaped sofa as the primary element." },
+                { url: "gambar1.2.png", title: "Contemporary Living Space", desc: "An elegant composition of warm and dark tones with vertical wood panel accents." },
+                { url: "gambar1.3.png", title: "Artistic Accent Wall", desc: "Accent wall featuring vertical wood panels and neatly arranged black-and-white artwork." },
+                { url: "gambar1.4.png", title: "Minimalist Living Room Design", desc: "A minimalist living room centered around a dark L-shaped sofa and neutral palette." },
+                { url: "gambar1.5.png", title: "Modular Comfort Zone", desc: "Modular sofa as the centerpiece of this modern design, perfect for relaxation." }
             ],
             'project-2': [
-                {
-                    url: "gambar2.1.png",
-                    title: "Ambient Lighting on Modern Kitchen Island",
-                    desc: "A kitchen island area featuring warm evening lighting, highlighting a fruit bowl focal point alongside decorative elements that enhance the modern aesthetic."
-                },
-                {
-                    url: "gambar2.2.png",
-                    title: "Decorative Shelving with Wood Accents",
-                    desc: "Minimalist wall shelving combining vases and photo frames. The vertical wood panels create a tidy and aesthetic display."
-                },
-                {
-                    url: "gambar2.3.png",
-                    title: "Natural Light Optimization",
-                    desc: "The sink and stove area maximize natural light through large windows, creating a bright and fresh atmosphere."
-                },
-                {
-                    url: "gambar2.4.png",
-                    title: "Minimalist Kitchen Set with Warm Lighting",
-                    desc: "A comprehensive view of the kitchen set featuring clean white cabinets and warm lighting that creates a cozy atmosphere at night."
-                },
-                {
-                    url: "gambar2.5.png",
-                    title: "Open Plan Kitchen Concept",
-                    desc: "An open-plan kitchen perspective connected to the family area, featuring a kitchen island as the activity hub."
-                },
-                {
-                    url: "gambar2.6.png",
-                    title: "Harmonized Partitions and Natural Elements",
-                    desc: "A detailed view showing decorative wood partitions and natural pendant lights for a functional yet stylish kitchen."
-                }
+                { url: "gambar2.1.png", title: "Ambient Lighting Kitchen", desc: "Kitchen island with warm evening lighting highlighting decorative elements." },
+                { url: "gambar2.2.png", title: "Decorative Shelving", desc: "Minimalist shelving combining vases and frames with vertical wood panels." },
+                { url: "gambar2.3.png", title: "Natural Light Optimization", desc: "Large windows in the sink area creating a bright and fresh atmosphere." },
+                { url: "gambar2.4.png", title: "Minimalist Kitchen Set", desc: "Clean white cabinets and warm lighting creating a cozy atmosphere at night." },
+                { url: "gambar2.5.png", title: "Open Plan Kitchen", desc: "Kitchen island as an activity hub, integrated with the family room area." },
+                { url: "gambar2.6.png", title: "Harmonized Partitions", desc: "Decorative wood partitions and natural pendant lights for a functional kitchen." }
             ],
             'project-3': [
-                { url: "gambar3.1.png", title: "Agrotourism Masterplan", desc: "A symmetrical landscape design featuring an iconic dome pavilion as the central activity hub." },
-                { url: "gambar3.2.png", title: "Modern Parking Facility", desc: "Expansive parking area with a sleek steel canopy design and integrated vegetation." },
-                { url: "gambar3.3.png", title: "Green Roof Entrance", desc: "Eco-friendly entrance gate utilizing a curved green roof to blend security with nature." },
-                { url: "gambar3.4.png", title: "Information Center", desc: "Dynamic wing-shaped roof design with glass walls, emphasizing biophilic architecture." },
-                { url: "gambar3.5.png", title: "Communal Pavilion", desc: "An open pavilion with wooden slat facades for optimal air circulation and aesthetic shadows." },
-                { url: "gambar3.6.png", title: "Reflection Pool Area", desc: "A cooling microclimate feature surrounded by productive fruit trees and relaxation zones." },
-                { url: "gambar3.7.png", title: "Circular Playground", desc: "Safe and organized circular play zones integrated into a lush green environment." },
-                { url: "gambar3.8.png", title: "Educational Landscape", desc: "A harmonious blend of active play areas and productive orchards for nature-based learning." }
+                { url: "gambar3.1.png", title: "Agrotourism Masterplan", desc: "Symmetrical landscape design featuring an iconic dome pavilion." },
+                { url: "gambar3.2.png", title: "Modern Parking Facility", desc: "Sleek steel canopy design with integrated vegetation." },
+                { url: "gambar3.3.png", title: "Green Roof Entrance", desc: "Eco-friendly gate utilizing a curved green roof to blend with nature." },
+                { url: "gambar3.4.png", title: "Information Center", desc: "Dynamic wing-shaped roof design emphasizing biophilic architecture." },
+                { url: "gambar3.5.png", title: "Communal Pavilion", desc: "Open pavilion with wooden slat facades for optimal air circulation." },
+                { url: "gambar3.6.png", title: "Reflection Pool Area", desc: "Cooling microclimate feature surrounded by productive fruit trees." },
+                { url: "gambar3.7.png", title: "Circular Playground", desc: "Safe circular play zones integrated into a lush green environment." },
+                { url: "gambar3.8.png", title: "Educational Landscape", desc: "Active play areas and productive orchards for nature-based learning." }
             ]
         };
 
@@ -729,7 +703,6 @@ nav.scrolled .nav-links a.active::after {
             updateModal();
         });
 
-        // Close modal when clicking outside the container
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.classList.remove('show');
@@ -737,7 +710,6 @@ nav.scrolled .nav-links a.active::after {
             }
         });
     </script>
-
 <div class="fab-container">
     <a href="#contact" class="fab-item" title="Contact via WhatsApp">
         <i class="fab fa-whatsapp"></i>
