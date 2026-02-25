@@ -442,11 +442,7 @@
             </div>
         </div>
 
-        <div class="slider-dots">
-            <div class="dot active"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>
+        <div class="slider-dots" id="slider-dots-container"></div>
     </section>
 
     <section id="contact" style="text-align: center; padding-bottom: 6rem;">
@@ -635,29 +631,67 @@
             }
         });
 
-        // Slider Logic
-        const slider = document.getElementById('slider-container');
-        const btnPrev = document.getElementById('slide-prev');
-        const btnNext = document.getElementById('slide-next');
-        const dots = document.querySelectorAll('.dot');
+// =========================================
+// LOGIC SLIDER OTOMATIS (DIGANTI BARU)
+// =========================================
+const slider = document.getElementById('slider-container');
+const btnPrev = document.getElementById('slide-prev');
+const btnNext = document.getElementById('slide-next');
+const dotsContainer = document.getElementById('slider-dots-container');
+const cards = document.querySelectorAll('.project-card');
 
-        btnNext.addEventListener('click', () => {
-            slider.scrollLeft += 400; 
-        });
+// 1. GENERATE DOTS OTOMATIS SESUAI JUMLAH PROJECT
+// Kosongkan container dulu biar tidak dobel kalau reload
+dotsContainer.innerHTML = ''; 
 
-        btnPrev.addEventListener('click', () => {
-            slider.scrollLeft -= 400;
+cards.forEach((card, index) => {
+    const dot = document.createElement('div');
+    dot.classList.add('dot');
+    if (index === 0) dot.classList.add('active'); // Dot pertama aktif
+    
+    // Fitur Tambahan: Klik dot untuk pindah ke project tersebut
+    dot.addEventListener('click', () => {
+        const cardWidth = card.offsetWidth + 25; // Lebar card + gap CSS
+        slider.scrollTo({
+            left: cardWidth * index,
+            behavior: 'smooth'
         });
+    });
+    
+    dotsContainer.appendChild(dot);
+});
 
-        slider.addEventListener('scroll', () => {
-            let scrollPos = slider.scrollLeft;
-            let cardWidth = 400;
-            let index = Math.round(scrollPos / cardWidth);
-            
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-        });
+// Ambil semua dot yang baru dibuat
+const dots = document.querySelectorAll('.dot');
+
+// 2. FUNGSI SCROLL BUTTON (KANAN KIRI)
+btnNext.addEventListener('click', () => {
+    // Hitung lebar dinamis (Card + Gap 25px)
+    const cardWidth = cards[0].offsetWidth + 25; 
+    slider.scrollLeft += cardWidth;
+});
+
+btnPrev.addEventListener('click', () => {
+    const cardWidth = cards[0].offsetWidth + 25;
+    slider.scrollLeft -= cardWidth;
+});
+
+// 3. FUNGSI UPDATE DOT SAAT DISCROLL
+slider.addEventListener('scroll', () => {
+    const cardWidth = cards[0].offsetWidth + 25; // 380px + 25px = 405px
+    const scrollPos = slider.scrollLeft;
+    
+    // Rumus: Posisi Scroll dibagi Lebar Card, dibulatkan
+    const activeIndex = Math.round(scrollPos / cardWidth);
+
+    dots.forEach((dot, index) => {
+        if (index === activeIndex) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+});
     </script>
 
 <div class="fab-container">    
